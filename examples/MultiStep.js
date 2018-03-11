@@ -24,7 +24,8 @@ const styles = () => ({
   gridItem: {
     margin: '100px',
     '& pre': {
-      color: 'gray',
+      color: '#999',
+      fontSize: '15px',
     },
   },
 })
@@ -75,7 +76,6 @@ export default class MultiStep extends Component {
         container
         direction="row"
         wrap="nowrap"
-        style={{ overflowX: 'hidden' }}
       >
         <Grid item xs className={classes.gridItem}>
           <Stepper activeStep={this.state.activeStep} alternativeLabel>

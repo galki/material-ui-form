@@ -10,8 +10,16 @@ import Toolbar from 'material-ui/Toolbar'
 import Button from 'material-ui/Button'
 /* eslint-enable import/no-extraneous-dependencies */
 
+import './styles.less'
 import MultiStep from './MultiStep'
 
+
+const wrapperStyle = {
+  backgroundColor: 'white',
+  height: 'inherit',
+  overflowX: 'hidden',
+  overflowY: 'auto',
+}
 
 const linkStyle = {
   fontFamily: 'sans-serif',
@@ -20,7 +28,7 @@ const linkStyle = {
 }
 
 const Root = () => (
-  <div style={{ backgroundColor: 'white' }}>
+  <div style={wrapperStyle}>
     <Reboot />
     <BrowserRouter>
       <div>
@@ -30,9 +38,7 @@ const Root = () => (
           </Toolbar>
         </AppBar>
 
-        <div style={{ overflowX: 'hidden' }}>
-          <Route exact path="/" component={MultiStep} />
-        </div>
+        <Route exact path="/" component={MultiStep} />
       </div>
     </BrowserRouter>
   </div>
