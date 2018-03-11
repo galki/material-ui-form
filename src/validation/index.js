@@ -64,4 +64,7 @@ export const validate = (value, fieldValidators, validationMessageMap) => {
   return validations
 }
 
-export { validators }
+export {
+  validators,
+  defaultValidationMessageMap,
+}

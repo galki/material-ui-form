@@ -64,6 +64,7 @@ export default class Form extends React.Component {
     validate: PropTypes.func,
     validations: PropTypes.object,
     validationMessageMap: PropTypes.object,
+    validationMessageKeyPrefix: PropTypes.string,
     onSubmit: PropTypes.func.isRequired,
   }
 
@@ -72,6 +73,7 @@ export default class Form extends React.Component {
     validate: null,
     validations: {},
     validationMessageMap: {},
+    validationMessageKeyPrefix: '',
   }
 
   constructor(props) {
