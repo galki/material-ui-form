@@ -6,12 +6,16 @@ function getElementFromProps(props) {
   return React.Children.only(props.children)
 }
 
-function makeLabel(props) {
-  const el = getElementFromProps(props)
+function getRequiredProp(required, requiredValidatorName) {
+  if (!_.isEmpty(requiredValidatorName)) {
+    return false
+  }
+  return required
+}
+
+function makeLabel(el, props) {
   const label = el.props.label || ''
-  return props.field.isRequired && !_.get(el.props, 'required')
-    ? `${label} *`
-    : label
+  return !_.isEmpty(props.requiredValidatorName) ? `${label} *` : label
 }
 
 function makeErrorAndHelperText(props) {
@@ -35,6 +39,10 @@ export default class FieldClone extends React.Component {
     field: PropTypes.object,
     onValueChange: PropTypes.func.isRequired,
     onConstruct: PropTypes.func.isRequired,
+    requiredValidatorName: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.bool,
+    ]).isRequired,
   }
 
   static defaultProps = {
@@ -105,10 +113,11 @@ export default class FieldClone extends React.Component {
     return React.cloneElement(el, {
       error: this.state.isError,
       helperText: this.state.helperText,
-      label: makeLabel(this.props),
+      label: makeLabel(el, this.props),
       onBlur: el.props.onBlur || this.onBlur,
       onChange: el.props.onChange || this.onChange,
       value: this.state.value,
+      required: getRequiredProp(el.props.required, this.props.requiredValidatorName),
     })
   }
 }

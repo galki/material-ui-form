@@ -1,5 +1,4 @@
-import validators from 'validator'
-
+import validators from './validators'
 import defaultValidationMessageMap from './validationMessageMap'
 
 
@@ -29,6 +28,7 @@ export const createValidation = (validator, args, validationMessageMap) => {
 }
 
 export const validate = (value, fieldValidators, validationMessageMap) => {
+  console.log('!!!')
   const validations = []
   if (_.isEmpty(fieldValidators)) {
     return []
@@ -54,6 +54,9 @@ export const validate = (value, fieldValidators, validationMessageMap) => {
     if (validators[validator] === undefined) {
       console.error('undefined validator:', validator)
     } else {
+
+      console.log('VALIDATION:', validator, value)
+
       const validation = validators[validator](value, ...args)
       if (!validation) {
         validations.push(createValidation(validator, args, validationMessageMap))

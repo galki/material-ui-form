@@ -112,6 +112,14 @@ export default class MultiStep extends Component {
 
             {this.state.activeStep === 1 &&
               <Fragment>
+                <TextField
+                  label="Test"
+                  type="text"
+                  name="test"
+                  value=""
+                  data-validators={["isRequired"]}
+                  fullWidth
+                />
                 {this.state.amounts.map((amount, i) => (
                   <TextField
                     key={amount}
@@ -121,6 +129,7 @@ export default class MultiStep extends Component {
                     name={`amounts[${i}]`}
                     value=""
                     data-validators="isInt"
+                    required
                     margin="normal"
                     fullWidth
                   >

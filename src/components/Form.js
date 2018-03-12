@@ -7,7 +7,7 @@ import { validate } from '../validation'
 
 
 const FIELD_VALIDATORS_PROP_NAME = 'data-validators'
-const REQUIRED_VALIDATOR_CODE = 'notEmpty'
+const REQUIRED_VALIDATOR_NAME = 'isRequired'
 
 function checkElementInteractivity(element) {
   return _.has(element, 'props.name') && _.has(element, 'props.value')
@@ -43,7 +43,7 @@ function extractFieldValidators(fieldProps) {
     }
     return validators
   }
-  return null
+  return []
 }
 
 function getFieldTemplate() {
@@ -61,6 +61,10 @@ export default class Form extends React.Component {
   static propTypes = {
     children: PropTypes.array.isRequired,
     disableSubmitButtonOnError: PropTypes.bool,
+    requiredValidatorName: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.bool,
+    ]),
     validate: PropTypes.func,
     validations: PropTypes.object,
     validationMessageMap: PropTypes.object,
@@ -70,6 +74,7 @@ export default class Form extends React.Component {
 
   static defaultProps = {
     disableSubmitButtonOnError: true,
+    requiredValidatorName: REQUIRED_VALIDATOR_NAME,
     validate: null,
     validations: {},
     validationMessageMap: {},
@@ -95,12 +100,15 @@ export default class Form extends React.Component {
 
   registerField = (fieldProps) => {
     const { name, value, required } = fieldProps
+    const { requiredValidatorName } = this.props
     if (!_.has(this.state.fields, name)) {
       const validators = extractFieldValidators(fieldProps)
-      const isRequired = (
-        !_.isEmpty(validators)
-        && (required || validators.includes(REQUIRED_VALIDATOR_CODE))
-      )
+
+      if (required && !_.isEmpty(requiredValidatorName)) {
+        validators.push(requiredValidatorName)
+      }
+      const isRequired = required || validators.includes(requiredValidatorName)
+      // console.log('isRequired:', isRequired, 'validators:', validators)
 
       _.defer(() => {
         this.setState({
@@ -119,6 +127,8 @@ export default class Form extends React.Component {
         if (!_.isEmpty(validators) && !_.isEmpty(value)) {
           this.validateField(name, value)
         }
+
+        // console.log('state:', this.state.fields[name])
       })
     }
   }
@@ -148,14 +158,15 @@ export default class Form extends React.Component {
   validateField = (name, value) => {
     const field = this.state.fields[name]
 
-    let validations = []
-    if (value !== '') {
-      validations = this.validate(
+    // let validations = []
+    // if ((!isRequired && value !== '') || isRequired) {
+    const validations = this.validate(
         String(value),
         field.validators,
         this.props.validationMessageMap,
       )
-    }
+    // console.log('>>>', name, value, validations)
+    // }
 
     field.validations = validations
     this.setState({
@@ -170,11 +181,7 @@ export default class Form extends React.Component {
     event.preventDefault()
     const { fields } = this.state
     _.each(fields, (field, name) => {
-      if (field.isRequired
-        && _.isEmpty(field.value)
-        && !_.isNumber(field.value)
-        && field.value !== 0
-      ) {
+      if (field.isRequired && field.value === '') {
         this.validateField(name, '')
       }
     })
@@ -233,12 +240,14 @@ export default class Form extends React.Component {
       }
       // clone all input elements
       const { name } = child.props
+      // console.log('--------', name, child.props, child)
       return (
         <FieldClone
           field={this.state.fields[name]}
           key={name}
           onValueChange={this.updateFieldValue}
           onConstruct={this.registerField}
+          requiredValidatorName={this.props.requiredValidatorName}
         >
           {child}
         </FieldClone>
