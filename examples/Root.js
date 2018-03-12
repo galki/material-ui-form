@@ -4,14 +4,16 @@ import ReactDOM from 'react-dom'
 /* eslint-disable import/no-extraneous-dependencies */
 import { BrowserRouter, Link, Route } from 'react-router-dom'
 
-import Reboot from 'material-ui/Reboot'
+import CssBaseline from 'material-ui/CssBaseline'
 import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Button from 'material-ui/Button'
 /* eslint-enable import/no-extraneous-dependencies */
 
 import './styles.less'
-import MultiStep from './MultiStep'
+import MultiStep from './pages/MultiStep'
+import NestedFields from './pages/NestedFields'
+import ExtendedValidators from './pages/ExtendedValidators'
 
 
 const wrapperStyle = {
@@ -21,24 +23,28 @@ const wrapperStyle = {
   overflowY: 'auto',
 }
 
-const linkStyle = {
-  fontFamily: 'sans-serif',
-  textDecoration: 'none',
-  color: 'white',
-}
-
 const Root = () => (
   <div style={wrapperStyle}>
-    <Reboot />
+    <CssBaseline />
     <BrowserRouter>
       <div>
         <AppBar position="sticky">
           <Toolbar>
-            <Button><Link to="/" style={linkStyle}>MultiStep</Link></Button>
+            <Button>
+              <Link to="/">Nested Fields</Link>
+            </Button>
+            <Button>
+              <Link to="/extended-validators">Extended Validators</Link>
+            </Button>
+            <Button>
+              <Link to="/multi-step">MultiStep</Link>
+            </Button>
           </Toolbar>
         </AppBar>
 
-        <Route exact path="/" component={MultiStep} />
+        <Route exact path="/" component={NestedFields} />
+        <Route exact path="/extended-validators" component={ExtendedValidators} />
+        <Route exact path="/multi-step" component={MultiStep} />
       </div>
     </BrowserRouter>
   </div>

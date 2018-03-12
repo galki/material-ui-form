@@ -10,7 +10,8 @@ import Stepper, { Step, StepLabel } from 'material-ui/Stepper'
 import { withStyles } from 'material-ui/styles'
 /* eslint-enable import/no-extraneous-dependencies */
 
-import Form from '../src/index'
+import Form from '../../src/index'
+import styles from '../styles'
 
 
 function getSteps() {
@@ -19,16 +20,6 @@ function getSteps() {
     'Step 2',
   ]
 }
-
-const styles = () => ({
-  gridItem: {
-    margin: '100px',
-    '& pre': {
-      color: '#999',
-      fontSize: '15px',
-    },
-  },
-})
 
 @withStyles(styles)
 export default class MultiStep extends Component {
@@ -61,13 +52,14 @@ export default class MultiStep extends Component {
   }
 
   submit = (values, pristineValues) => {
+    // eslint-disable-next-line no-console
     console.log('submit values:', values, 'pristine values:', pristineValues)
     this.setState({ onSubmitValues: values })
   }
 
   render() {
+    // eslint-disable-next-line no-console
     console.log('Form:', this.props, this.state)
-
     const steps = getSteps()
     const { classes } = this.props
 
@@ -117,7 +109,7 @@ export default class MultiStep extends Component {
                   type="text"
                   name="test"
                   value=""
-                  data-validators={["isRequired"]}
+                  data-validators={['isRequired']}
                   fullWidth
                 />
                 {this.state.amounts.map((amount, i) => (

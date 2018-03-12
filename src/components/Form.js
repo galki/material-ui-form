@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import _ from 'lodash'
+import _ from 'lodash' // eslint-disable-line import/no-extraneous-dependencies
+
+import { FormControlLabel } from 'material-ui/Form'
 
 import FieldClone from './FieldClone'
 import { validate } from '../validation'
@@ -9,8 +11,13 @@ import { validate } from '../validation'
 const FIELD_VALIDATORS_PROP_NAME = 'data-validators'
 const REQUIRED_VALIDATOR_NAME = 'isRequired'
 
-function checkElementInteractivity(element) {
-  return _.has(element, 'props.name') && _.has(element, 'props.value')
+function checkElementInteractivity(component) {
+  const whitelist = [
+    FormControlLabel,
+  ]
+
+  return whitelist.includes(component.type)
+   || (_.has(component, 'props.name') && _.has(component, 'props.value'))
 }
 
 function isValidForm(fields) {
@@ -98,42 +105,55 @@ export default class Form extends React.Component {
     this.setState({ fields })
   }
 
-  registerField = (fieldProps) => {
+  onFieldConstruct = (fieldProps, isCheckable) => {
     const { name, value, required } = fieldProps
-    const { requiredValidatorName } = this.props
-    if (!_.has(this.state.fields, name)) {
-      const validators = extractFieldValidators(fieldProps)
-
-      if (required && !_.isEmpty(requiredValidatorName)) {
-        validators.push(requiredValidatorName)
-      }
-      const isRequired = required || validators.includes(requiredValidatorName)
-      // console.log('isRequired:', isRequired, 'validators:', validators)
-
+    // checkable input
+    if (isCheckable) {
       _.defer(() => {
         this.setState({
           fields: {
             ...this.state.fields,
             [name]: {
               ...getFieldTemplate(),
-              isRequired,
-              pristineValue: value,
-              validators,
               value,
             },
           },
         })
-
-        if (!_.isEmpty(validators) && !_.isEmpty(value)) {
-          this.validateField(name, value)
-        }
-
-        // console.log('state:', this.state.fields[name])
       })
+    // other inputs
+    } else {
+      const { requiredValidatorName } = this.props
+      if (!_.has(this.state.fields, name)) {
+        const validators = extractFieldValidators(fieldProps)
+
+        if (required && !_.isEmpty(requiredValidatorName)) {
+          validators.unshift(requiredValidatorName)
+        }
+        const isRequired = required || validators.includes(requiredValidatorName)
+
+        _.defer(() => {
+          this.setState({
+            fields: {
+              ...this.state.fields,
+              [name]: {
+                ...getFieldTemplate(),
+                isRequired,
+                pristineValue: value,
+                validators,
+                value,
+              },
+            },
+          })
+
+          if (!_.isEmpty(validators) && !_.isEmpty(value)) {
+            this.validateField(name, value)
+          }
+        })
+      }
     }
   }
 
-  updateFieldValue = (name, value) => {
+  onFieldValueChange = (name, value) => {
     _.defer(() => {
       this.setState({
         fields: {
@@ -155,18 +175,24 @@ export default class Form extends React.Component {
     })
   }
 
+  onFieldToggle = (name, value) => {
+    if (_.isEmpty(value)) {
+      const fields = _.omit(this.state.fields, name)
+      this.setState({ fields })
+    } else {
+      this.onFieldConstruct({ name, value }, true)
+    }
+  }
+
   validateField = (name, value) => {
     const field = this.state.fields[name]
 
-    // let validations = []
-    // if ((!isRequired && value !== '') || isRequired) {
     const validations = this.validate(
-        String(value),
-        field.validators,
-        this.props.validationMessageMap,
-      )
-    // console.log('>>>', name, value, validations)
-    // }
+      String(value),
+      field.validators,
+      this.props.validationMessageMap,
+      this.props.validationMessageKeyPrefix
+    )
 
     field.validations = validations
     this.setState({
@@ -215,6 +241,7 @@ export default class Form extends React.Component {
         return null
       }
 
+
       const isInteractiveElement = checkElementInteractivity(child)
       // use recursion on nested elements
       const nestedChildren = (
@@ -238,15 +265,20 @@ export default class Form extends React.Component {
       } else if (!isInteractiveElement) {
         return child
       }
-      // clone all input elements
+      // clone control label
+      if (child.type === FormControlLabel) {
+        // child = child.props.control
+        return null
+      }
+      // clone input element
       const { name } = child.props
-      // console.log('--------', name, child.props, child)
       return (
         <FieldClone
-          field={this.state.fields[name]}
           key={name}
-          onValueChange={this.updateFieldValue}
-          onConstruct={this.registerField}
+          field={this.state.fields[name]}
+          onToggle={this.onFieldToggle}
+          onValueChange={this.onFieldValueChange}
+          onConstruct={this.onFieldConstruct}
           requiredValidatorName={this.props.requiredValidatorName}
         >
           {child}

@@ -1,6 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import Checkbox from 'material-ui/Checkbox'
+import Switch from 'material-ui/Switch'
+
 
 function getElementFromProps(props) {
   return React.Children.only(props.children)
@@ -13,16 +16,31 @@ function getRequiredProp(required, requiredValidatorName) {
   return required
 }
 
-function makeLabel(el, props) {
-  const label = el.props.label || ''
-  return !_.isEmpty(props.requiredValidatorName) ? `${label} *` : label
+function makeIsCheckableAndChecked(el) {
+  let checked = null
+  const isCheckable = el.type === Checkbox || el.type === Switch
+  if (isCheckable) {
+    checked = el.props.checked || false
+  }
+  return { isCheckable, checked }
 }
 
-function makeErrorAndHelperText(props) {
+function makeLabel(el, props) {
+  const label = el.props.label || ''
+  return props.field.isRequired && !_.isEmpty(props.requiredValidatorName)
+    ? `${label} *`
+    : label
+}
+
+function makeErrorAndHelperText(props, isCheckable) {
   const el = getElementFromProps(props)
   let helperText = _.get(el.props, 'helperText')
   let isError = false
-  if (!_.isEmpty(props.field) && props.field.validations.length > 0) {
+
+  if (!isCheckable
+    && !_.isEmpty(props.field)
+    && props.field.validations.length > 0
+  ) {
     helperText = props.field.validations[0].message
     isError = true
   }
@@ -37,6 +55,7 @@ export default class FieldClone extends React.Component {
       PropTypes.object,
     ]).isRequired,
     field: PropTypes.object,
+    onToggle: PropTypes.func.isRequired,
     onValueChange: PropTypes.func.isRequired,
     onConstruct: PropTypes.func.isRequired,
     requiredValidatorName: PropTypes.oneOfType([
@@ -61,16 +80,18 @@ export default class FieldClone extends React.Component {
     }
 
     const value = _.isEmpty(props.field) ? el.props.value : props.field.value
-    const { helperText, isError } = makeErrorAndHelperText(props)
+    const { isCheckable, checked } = makeIsCheckableAndChecked(el)
+    const { helperText, isError } = makeErrorAndHelperText(props, isCheckable)
 
     this.state = {
       helperText,
       isError,
       value,
+      checked,
     }
 
     if (props.field.value === undefined) {
-      this.props.onConstruct(el.props)
+      this.props.onConstruct(el.props, isCheckable)
     }
   }
 
@@ -86,7 +107,6 @@ export default class FieldClone extends React.Component {
   }
 
   onBlur = (event) => {
-    event.stopPropagation()
     const el = getElementFromProps(this.props)
     // // /* TODO: create function for condition */
     if (!el.props.select) {
@@ -96,7 +116,6 @@ export default class FieldClone extends React.Component {
   }
 
   onChange = (event) => {
-    event.stopPropagation()
     const el = getElementFromProps(this.props)
     const { value } = event.target
     const helperText = _.get(el.props, 'helperText')
@@ -107,17 +126,39 @@ export default class FieldClone extends React.Component {
     }
   }
 
+  onToggle = (event, checked) => {
+    console.log(event.target.value, checked)
+    const el = getElementFromProps(this.props)
+    const value = checked ? el.props.value : ''
+    this.setState({ checked, value })
+    this.props.onToggle(el.props.name, value)
+  }
+
   render() {
     const el = getElementFromProps(this.props)
-
-    return React.cloneElement(el, {
-      error: this.state.isError,
-      helperText: this.state.helperText,
-      label: makeLabel(el, this.props),
-      onBlur: el.props.onBlur || this.onBlur,
-      onChange: el.props.onChange || this.onChange,
+    let options = {
       value: this.state.value,
-      required: getRequiredProp(el.props.required, this.props.requiredValidatorName),
-    })
+    }
+
+    if (this.state.checked === null) {
+      options = Object.assign(options, {
+        label: makeLabel(el, this.props),
+        error: this.state.isError,
+        helperText: this.state.helperText,
+        onBlur: el.props.onBlur || this.onBlur,
+        onChange: el.props.onChange || this.onChange,
+        required: getRequiredProp(
+          el.props.required,
+          this.props.requiredValidatorName
+        ),
+      })
+    } else {
+      options = Object.assign(options, {
+        checked: this.state.checked,
+        onChange: el.props.onChange || el.props.onToggle || this.onToggle,
+      })
+    }
+
+    return React.cloneElement(el, options)
   }
 }

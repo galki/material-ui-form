@@ -2,24 +2,29 @@ import validators from './validators'
 import defaultValidationMessageMap from './validationMessageMap'
 
 
-const INPUT_CODE_PREFIX = ''
-
 function sprintf(str, args) {
   return str.replace(/{(\d+)}/g, (match, number) => (
     args[number] !== undefined ? args[number] : match
   ))
 }
 
-export const createValidation = (validator, args, validationMessageMap) => {
+export const createValidation = (
+  validator,
+  args,
+  validationMessageMap,
+  validationMessageKeyPrefix
+) => {
   if (_.isEmpty(validationMessageMap)) {
     validationMessageMap = defaultValidationMessageMap
   }
 
-  const code = (
-    _.has(validationMessageMap, validator) || validator.startsWith(INPUT_CODE_PREFIX)
-  )
-    ? validator
-    : `${INPUT_CODE_PREFIX}${validator}`
+  let code = validator
+  if (!_.has(validationMessageMap, validator)
+    && !validator.startsWith(validationMessageKeyPrefix)
+  ) {
+    code = `${validationMessageKeyPrefix}${validator}`
+  }
+
   let message = validationMessageMap[code]
   if (message !== undefined && (_.isNumber(args) || !_.isEmpty(args))) {
     message = sprintf(message, args)
@@ -27,8 +32,12 @@ export const createValidation = (validator, args, validationMessageMap) => {
   return { code, message }
 }
 
-export const validate = (value, fieldValidators, validationMessageMap) => {
-  console.log('!!!')
+export const validate = (
+  value,
+  fieldValidators,
+  validationMessageMap,
+  validationMessageKeyPrefix
+) => {
   const validations = []
   if (_.isEmpty(fieldValidators)) {
     return []
@@ -54,12 +63,14 @@ export const validate = (value, fieldValidators, validationMessageMap) => {
     if (validators[validator] === undefined) {
       console.error('undefined validator:', validator)
     } else {
-
-      console.log('VALIDATION:', validator, value)
-
       const validation = validators[validator](value, ...args)
       if (!validation) {
-        validations.push(createValidation(validator, args, validationMessageMap))
+        validations.push(createValidation(
+          validator,
+          args,
+          validationMessageMap,
+          validationMessageKeyPrefix
+        ))
       }
     }
   })
