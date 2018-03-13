@@ -87,7 +87,7 @@ export default class NestedFields extends React.Component {
                 <fieldset>
                   <legend>Nested nested nested</legend>
                   <FormControlLabel
-                    control={<Checkbox name="use" value="wisely" />}
+                    control={<Checkbox checked={false} name="use" value="wisely" />}
                     label="I will use them wisely"
                   />
                 </fieldset>

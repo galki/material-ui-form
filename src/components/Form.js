@@ -4,6 +4,7 @@ import _ from 'lodash' // eslint-disable-line import/no-extraneous-dependencies
 
 import { FormControlLabel } from 'material-ui/Form'
 
+import ControlLabelClone from './ControlLabelClone'
 import FieldClone from './FieldClone'
 import { validate } from '../validation'
 
@@ -106,22 +107,30 @@ export default class Form extends React.Component {
   }
 
   onFieldConstruct = (fieldProps, isCheckable) => {
-    const { name, value, required } = fieldProps
+    const {
+      checked,
+      name,
+      required,
+      value,
+    } = fieldProps
+
     // checkable input
-    if (isCheckable) {
+    if (isCheckable && checked) {
+      console.log('onConstruct:', name, value, fieldProps)
       _.defer(() => {
         this.setState({
           fields: {
             ...this.state.fields,
             [name]: {
               ...getFieldTemplate(),
+              checked: checked || false,
               value,
             },
           },
         })
       })
     // other inputs
-    } else {
+    } else if (!isCheckable) {
       const { requiredValidatorName } = this.props
       if (!_.has(this.state.fields, name)) {
         const validators = extractFieldValidators(fieldProps)
@@ -175,12 +184,12 @@ export default class Form extends React.Component {
     })
   }
 
-  onFieldToggle = (name, value) => {
+  onFieldToggle = (name, value, checked) => {
     if (_.isEmpty(value)) {
       const fields = _.omit(this.state.fields, name)
       this.setState({ fields })
     } else {
-      this.onFieldConstruct({ name, value }, true)
+      this.onFieldConstruct({ name, value, checked }, true)
     }
   }
 
@@ -241,7 +250,6 @@ export default class Form extends React.Component {
         return null
       }
 
-
       const isInteractiveElement = checkElementInteractivity(child)
       // use recursion on nested elements
       const nestedChildren = (
@@ -267,8 +275,17 @@ export default class Form extends React.Component {
       }
       // clone control label
       if (child.type === FormControlLabel) {
-        // child = child.props.control
-        return null
+        const { name } = child.props.control.props
+        return (
+          <ControlLabelClone
+            key={name}
+            field={this.state.fields[name]}
+            control={child.props.control}
+            label={child.props.label}
+            onToggle={this.onFieldToggle}
+            onConstruct={this.onFieldConstruct}
+          />
+        )
       }
       // clone input element
       const { name } = child.props

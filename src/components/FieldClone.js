@@ -127,11 +127,10 @@ export default class FieldClone extends React.Component {
   }
 
   onToggle = (event, checked) => {
-    console.log(event.target.value, checked)
     const el = getElementFromProps(this.props)
     const value = checked ? el.props.value : ''
     this.setState({ checked, value })
-    this.props.onToggle(el.props.name, value)
+    this.props.onToggle(el.props.name, value, checked)
   }
 
   render() {
