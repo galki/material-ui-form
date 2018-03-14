@@ -5,21 +5,31 @@ import PropTypes from 'prop-types'
 import Grid from 'material-ui/Grid'
 import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
-import { MenuItem } from 'material-ui/Menu'
 import { withStyles } from 'material-ui/styles'
 import Checkbox from 'material-ui/Checkbox'
 import {
   FormLabel,
   FormControl,
-  FormGroup,
   FormControlLabel,
   FormHelperText,
 } from 'material-ui/Form'
+import Radio, { RadioGroup } from 'material-ui/Radio'
 /* eslint-enable import/no-extraneous-dependencies */
+
+import Input, { InputLabel } from 'material-ui/Input'
+import Select from 'material-ui/Select'
+import { MenuItem } from 'material-ui/Menu'
 
 import Form from '../../src/index'
 import styles from '../styles'
 
+
+const formControlStyle = {
+  padding: 'inherit',
+  margin: 'inherit',
+  display: 'inherit',
+  border: 'inherit',
+}
 
 @withStyles(styles)
 export default class NestedFields extends React.Component {
@@ -38,8 +48,6 @@ export default class NestedFields extends React.Component {
   }
 
   render() {
-    // eslint-disable-next-line no-console
-    console.log('Form:', this.props, this.state)
     const { classes } = this.props
 
     return (
@@ -90,6 +98,36 @@ export default class NestedFields extends React.Component {
                     control={<Checkbox checked={false} name="use" value="wisely" />}
                     label="I will use them wisely"
                   />
+
+                  <FormControl
+                    component="fieldset"
+                    style={formControlStyle}
+                    required
+                  >
+                    <FormLabel component="legend">
+                      Nested nested nested nested (FormControl)
+                    </FormLabel>
+                    <RadioGroup
+                      name="certainty"
+                      value=""
+                    >
+                      <FormControlLabel
+                        value="high"
+                        control={<Radio />}
+                        label="I swear"
+                      />
+                      <FormControlLabel
+                        value="soso"
+                        control={<Radio />}
+                        label="Probably"
+                      />
+                      <FormControlLabel
+                        value="low"
+                        control={<Radio />}
+                        label="Maybe"
+                      />
+                    </RadioGroup>
+                  </FormControl>
                 </fieldset>
               </fieldset>
             </fieldset>

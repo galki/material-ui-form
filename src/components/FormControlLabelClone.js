@@ -6,7 +6,7 @@ import Switch from 'material-ui/Switch'
 import { FormControlLabel } from 'material-ui/Form'
 
 
-export default class ControlLabelClone extends React.Component {
+export default class FormControlLabelClone extends React.Component {
   static propTypes = {
     /* eslint-disable-next-line */
     control: PropTypes.object.isRequired,
@@ -31,7 +31,7 @@ export default class ControlLabelClone extends React.Component {
     const { value } = props.control.props
 
     if (props.field.value === undefined) {
-      this.props.onConstruct(props.control.props, true)
+      props.onConstruct(props.control.props)
     } else {
       checked = props.field.checked // eslint-disable-line prefer-destructuring
     }

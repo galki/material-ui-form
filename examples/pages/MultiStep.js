@@ -10,9 +10,24 @@ import Stepper, { Step, StepLabel } from 'material-ui/Stepper'
 import { withStyles } from 'material-ui/styles'
 /* eslint-enable import/no-extraneous-dependencies */
 
+import {
+  FormLabel,
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+} from 'material-ui/Form'
+import Radio, { RadioGroup } from 'material-ui/Radio'
+
 import Form from '../../src/index'
 import styles from '../styles'
 
+
+const formControlStyle = {
+  padding: '20px',
+  margin: '20px 0 0',
+  display: 'inherit',
+  border: '1px solid gray',
+}
 
 function getSteps() {
   return [
@@ -112,6 +127,38 @@ export default class MultiStep extends Component {
                   data-validators={['isRequired']}
                   fullWidth
                 />
+
+                <FormControl
+                  component="fieldset"
+                  style={formControlStyle}
+                  required
+                >
+                  <FormLabel component="legend">
+                    Nested nested nested nested (FormControl)
+                  </FormLabel>
+                  <RadioGroup
+                    name="certainty"
+                    value=""
+                  >
+                    <FormControlLabel
+                      value="high"
+                      control={<Radio />}
+                      label="I swear"
+                    />
+                    <FormControlLabel
+                      value="soso"
+                      control={<Radio />}
+                      label="Probably"
+                    />
+                    <FormControlLabel
+                      value="low"
+                      control={<Radio />}
+                      label="Maybe"
+                    />
+                  </RadioGroup>
+                  <FormHelperText>Be honest</FormHelperText>
+                </FormControl>
+
                 {this.state.amounts.map((amount, i) => (
                   <TextField
                     key={amount}

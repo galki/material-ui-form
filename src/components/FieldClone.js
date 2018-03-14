@@ -91,7 +91,7 @@ export default class FieldClone extends React.Component {
     }
 
     if (props.field.value === undefined) {
-      this.props.onConstruct(el.props, isCheckable)
+      this.props.onConstruct(el.props)
     }
   }
 

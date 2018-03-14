@@ -2,9 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash' // eslint-disable-line import/no-extraneous-dependencies
 
-import { FormControlLabel } from 'material-ui/Form'
+import {
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  FormHelperText,
+  FormLabel,
+} from 'material-ui/Form'
+import { InputLabel } from 'material-ui/Input'
 
-import ControlLabelClone from './ControlLabelClone'
+import FormControlClone from './FormControlClone'
+import FormControlLabelClone from './FormControlLabelClone'
 import FieldClone from './FieldClone'
 import { validate } from '../validation'
 
@@ -106,7 +114,7 @@ export default class Form extends React.Component {
     this.setState({ fields })
   }
 
-  onFieldConstruct = (fieldProps, isCheckable) => {
+  onFieldConstruct = (fieldProps) => {
     const {
       checked,
       name,
@@ -115,8 +123,7 @@ export default class Form extends React.Component {
     } = fieldProps
 
     // checkable input
-    if (isCheckable && checked) {
-      console.log('onConstruct:', name, value, fieldProps)
+    if (checked === true) {
       _.defer(() => {
         this.setState({
           fields: {
@@ -130,7 +137,7 @@ export default class Form extends React.Component {
         })
       })
     // other inputs
-    } else if (!isCheckable) {
+    } else if (!_.isBoolean(checked)) {
       const { requiredValidatorName } = this.props
       if (!_.has(this.state.fields, name)) {
         const validators = extractFieldValidators(fieldProps)
@@ -243,7 +250,7 @@ export default class Form extends React.Component {
     }
   }
 
-  renderChildrenRecursively(children) {
+  cloneChildrenRecursively(children) {
     return React.Children.map(children, (child) => {
       // skip blanks
       if (_.isEmpty(child)) {
@@ -251,16 +258,43 @@ export default class Form extends React.Component {
       }
 
       const isInteractiveElement = checkElementInteractivity(child)
-      // use recursion on nested elements
-      const nestedChildren = (
-        _.isArray(child.props.children) && !isInteractiveElement
-      )
+      const nestedChildren = _.isArray(child.props.children) && !isInteractiveElement
         ? _.filter(child.props.children, _.isObject)
         : false
-      if (!_.isEmpty(nestedChildren)) {
+
+      // nested elements
+      if (nestedChildren !== false) {
+        // FormControl element
+        if (child.type === FormControl) {
+          const fieldElement = nestedChildren.find(el =>
+            ![FormLabel, InputLabel, FormHelperText].includes(el.type)
+            // el.type !== FormLabel
+            // && el.type !== InputLabel
+            // && el.type !== FormHelperText
+            && el.props.name !== undefined
+            && el.props.value !== undefined)
+          // name/value group
+          if (fieldElement !== undefined) {
+            const { name } = fieldElement.props
+            return (
+              <FormControlClone
+                key={name}
+                field={this.state.fields[name]}
+                formControlElement={child}
+                onConstruct={this.onFieldConstruct}
+                onValueChange={this.onFieldValueChange}
+              />
+            )
+          // non-name/value group
+          // eslint-disable-next-line
+          }/* else {
+
+          }*/
+        }
+        // non-FormControl element
         return (
           <child.type>
-            {this.renderChildrenRecursively(nestedChildren)}
+            {this.cloneChildrenRecursively(nestedChildren)}
           </child.type>
         )
       }
@@ -277,13 +311,13 @@ export default class Form extends React.Component {
       if (child.type === FormControlLabel) {
         const { name } = child.props.control.props
         return (
-          <ControlLabelClone
+          <FormControlLabelClone
             key={name}
             field={this.state.fields[name]}
             control={child.props.control}
             label={child.props.label}
-            onToggle={this.onFieldToggle}
             onConstruct={this.onFieldConstruct}
+            onToggle={this.onFieldToggle}
           />
         )
       }
@@ -293,9 +327,9 @@ export default class Form extends React.Component {
         <FieldClone
           key={name}
           field={this.state.fields[name]}
+          onConstruct={this.onFieldConstruct}
           onToggle={this.onFieldToggle}
           onValueChange={this.onFieldValueChange}
-          onConstruct={this.onFieldConstruct}
           requiredValidatorName={this.props.requiredValidatorName}
         >
           {child}
@@ -310,7 +344,7 @@ export default class Form extends React.Component {
         onSubmit={this.submit}
         autoComplete="false"
       >
-        { this.renderChildrenRecursively(this.props.children) }
+        { this.cloneChildrenRecursively(this.props.children) }
       </form>
     )
   }
