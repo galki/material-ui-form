@@ -16,10 +16,11 @@ import styles from '../styles'
 const dividerStyle = { margin: '20px 0' }
 
 const customValidationMessageMap = Object.assign(validationMessageMap, {
-  isEmail: 'メールアドレスが無効です',
-  isIn: '「{0}」のいずれかを記入してください',
-  isWhitelisted: '文字は「{0}」から選択してください',
-  isLength: '文字数は{0}以上{1}以下であることは条件',
+  myCustomPrefix_isInt: 'Invalid integer',
+  myCustomPrefix_isEmail: 'メールアドレスが無効です',
+  myCustomPrefix_isIn: '「{0}」のいずれかを記入してください',
+  myCustomPrefix_isWhitelisted: '文字は「{0}」から選択してください',
+  myCustomPrefix_isLength: '文字数は{0}以上{1}以下であることは条件',
 })
 
 @withStyles(styles)
@@ -51,12 +52,13 @@ export default class CustomValidationMessages extends React.Component {
           <Form
             onSubmit={this.submit}
             validationMessageMap={customValidationMessageMap}
+            validationMessageKeyPrefix="myCustomPrefix_"
           >
             <TextField
               label="Name"
               type="text"
               name="name"
-              value="this field's validation message is the default one"
+              value="this field's validation message is like the default one"
               data-validators="isInt"
               fullWidth
             />
