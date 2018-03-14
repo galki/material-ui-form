@@ -73,8 +73,6 @@ export default class MultiStep extends Component {
   }
 
   render() {
-    // eslint-disable-next-line no-console
-    console.log('Form:', this.props, this.state)
     const steps = getSteps()
     const { classes } = this.props
 
@@ -131,7 +129,7 @@ export default class MultiStep extends Component {
                 <FormControl
                   component="fieldset"
                   style={formControlStyle}
-                  required
+                  data-validators={['isRequired']}
                 >
                   <FormLabel component="legend">
                     Nested nested nested nested (FormControl)
@@ -180,7 +178,7 @@ export default class MultiStep extends Component {
                 ))}
                 <Button variant="raised" onClick={this.addAmount}>Add amount</Button>
                 <Button variant="raised" onClick={this.clickBack}>Back</Button>
-                <Button variant="raised" type="submit">Create</Button>
+                <Button variant="raised" type="submit">Submit</Button>
               </Fragment>
             }
           </Form>

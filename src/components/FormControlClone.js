@@ -1,14 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {
-  FormControl,
-  FormGroup,
-  FormHelperText,
-  FormLabel,
-} from 'material-ui/Form'
+import { FormControl, FormHelperText, FormLabel } from 'material-ui/Form'
 import { InputLabel } from 'material-ui/Input'
-import { RadioGroup } from 'material-ui/Radio'
 
 
 function getErrorAndHelperText(field) {
@@ -57,7 +51,10 @@ export default class FormControlClone extends React.Component {
       }
     })
 
-    if (name === undefined || value === undefined) {
+    if (props.formControlElement.type !== FormControl
+      || name === undefined
+      || value === undefined
+    ) {
       throw new Error('invalid FormControl control children')
     }
 

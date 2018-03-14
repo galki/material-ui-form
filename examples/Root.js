@@ -13,7 +13,7 @@ import Button from 'material-ui/Button'
 import './styles.less'
 import MultiStep from './pages/MultiStep'
 import NestedFields from './pages/NestedFields'
-import ExtendedValidators from './pages/ExtendedValidators'
+import CustomValidationMessages from './pages/CustomValidationMessages'
 
 
 const wrapperStyle = {
@@ -34,17 +34,22 @@ const Root = () => (
               <Link to="/">Nested Fields</Link>
             </Button>
             <Button>
-              <Link to="/extended-validators">Extended Validators</Link>
+              <Link to="/custom-validation-messages">
+                Custom Validation Messages
+              </Link>
             </Button>
             <Button>
-              <Link to="/multi-step">MultiStep</Link>
+              <Link to="/stepper">Stepper</Link>
             </Button>
           </Toolbar>
         </AppBar>
 
         <Route exact path="/" component={NestedFields} />
-        <Route exact path="/extended-validators" component={ExtendedValidators} />
-        <Route exact path="/multi-step" component={MultiStep} />
+        <Route
+          path="/custom-validation-messages"
+          component={CustomValidationMessages}
+        />
+        <Route path="/stepper" component={MultiStep} />
       </div>
     </BrowserRouter>
   </div>

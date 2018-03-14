@@ -1,31 +1,47 @@
 import validators from './validators'
-import defaultValidationMessageMap from './validationMessageMap'
+import validationMessageMap from './validationMessageMap'
 
 
 function sprintf(str, args) {
-  return str.replace(/{(\d+)}/g, (match, number) => (
-    args[number] !== undefined ? args[number] : match
-  ))
+  let predicate
+  if (_.isString(args)) {
+    predicate = args
+  } else if (_.isObject(args) && !_.isArray(args)) {
+    args = Object.values(args)
+    predicate = (match, number) => (
+      args[number] !== undefined ? args[number] : match
+    )
+  } else {
+    predicate = (match, number) => (
+      // eslint-disable-next-line no-nested-ternary
+      args[number] !== undefined
+        ? (_.isArray(args) ? args.join(', ') : args[number])
+        : match
+    )
+  }
+  return str.replace(/{(\d+)}/g, predicate)
 }
+
+let messageMap = _.clone(validationMessageMap)
 
 export const createValidation = (
   validator,
   args,
-  validationMessageMap,
+  formValidationMessageMap,
   validationMessageKeyPrefix
 ) => {
-  if (_.isEmpty(validationMessageMap)) {
-    validationMessageMap = defaultValidationMessageMap
+  if (!_.isEmpty(formValidationMessageMap)) {
+    messageMap = formValidationMessageMap
   }
 
   let code = validator
-  if (!_.has(validationMessageMap, validator)
+  if (!_.has(messageMap, validator)
     && !validator.startsWith(validationMessageKeyPrefix)
   ) {
     code = `${validationMessageKeyPrefix}${validator}`
   }
 
-  let message = validationMessageMap[code]
+  let message = messageMap[code]
   if (message !== undefined && (_.isNumber(args) || !_.isEmpty(args))) {
     message = sprintf(message, args)
   }
@@ -35,40 +51,40 @@ export const createValidation = (
 export const validate = (
   value,
   fieldValidators,
-  validationMessageMap,
+  formValidationMessageMap,
   validationMessageKeyPrefix
 ) => {
   const validations = []
   if (_.isEmpty(fieldValidators)) {
     return []
   } else if (!_.isArray(fieldValidators)) {
+    // eslint-disable-next-line no-console
     console.error('invalid validators format:', fieldValidators)
     return false
   }
 
   fieldValidators.forEach((validator) => {
-    let args = []
+    let args
     if (_.isObject(validator) && _.size(validator) === 1) {
-      args = Object.values(validator)[0]
-      validator = Object.keys(validator)[0]
-      if (_.isObject(args)) {
-        args = Object.values(args)
-      } else if (!_.isArray(args)) {
-        args = [args]
-      }
+      args = Object.values(validator)[0] // eslint-disable-line prefer-destructuring
+      validator = Object.keys(validator)[0] // eslint-disable-line prefer-destructuring
     } else if (!_.isString(validator)) {
+    // eslint-disable-next-line no-console
       console.error('invalid validator:', validator)
     }
 
     if (validators[validator] === undefined) {
+    // eslint-disable-next-line no-console
       console.error('undefined validator:', validator)
     } else {
-      const validation = validators[validator](value, ...args)
+      value = String(value)
+      const validation = validators[validator](value, args)
+      // console.log(validator, value, args, validation)
       if (!validation) {
         validations.push(createValidation(
           validator,
           args,
-          validationMessageMap,
+          formValidationMessageMap,
           validationMessageKeyPrefix
         ))
       }
@@ -80,5 +96,5 @@ export const validate = (
 
 export {
   validators,
-  defaultValidationMessageMap,
+  validationMessageMap,
 }

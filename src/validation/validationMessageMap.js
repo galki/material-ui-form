@@ -21,7 +21,7 @@ export default {
   isHash: 'Invalid hash',
   isHexadecimal: 'Invalid hexadecimal',
   isHexColor: 'Invalid HEX value',
-  isIn: 'Value should be one of [0]',
+  isIn: 'Value should be one of {0}',
   isInt: 'Invalid integer',
   isIP: 'Invalid IP',
   isISBN: 'Invalid ISBN',
@@ -47,7 +47,7 @@ export default {
   isUrl: 'Invalid URL',
   isUUID: 'Invalid UUID',
   isVariableWidth: 'Characters should be hald-width or full-width',
-  isWhitelisted: 'Characters should be one of [0]',
+  isWhitelisted: 'Characters should be one of "{0}"',
   // material-ui-form
   isAlias: 'Invalid alias - use letters, numbers, dots, hyphens, underscores',
   isRequired: 'Required field',

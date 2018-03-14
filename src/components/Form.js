@@ -5,7 +5,6 @@ import _ from 'lodash' // eslint-disable-line import/no-extraneous-dependencies
 import {
   FormControl,
   FormControlLabel,
-  FormGroup,
   FormHelperText,
   FormLabel,
 } from 'material-ui/Form'
@@ -204,7 +203,7 @@ export default class Form extends React.Component {
     const field = this.state.fields[name]
 
     const validations = this.validate(
-      String(value),
+      value,
       field.validators,
       this.props.validationMessageMap,
       this.props.validationMessageKeyPrefix
@@ -217,6 +216,10 @@ export default class Form extends React.Component {
         [name]: field,
       },
     })
+
+    if (!_.isEmpty(validations)) {
+      this.disableSubmitButton()
+    }
   }
 
   submit = (event) => {
@@ -228,9 +231,7 @@ export default class Form extends React.Component {
       }
     })
 
-    if (!isValidForm(fields)) {
-      this.disableSubmitButton()
-    } else {
+    if (isValidForm(fields)) {
       this.props.onSubmit(
         getFieldValues(fields),
         getPristineFieldValues(fields)
@@ -264,16 +265,12 @@ export default class Form extends React.Component {
 
       // nested elements
       if (nestedChildren !== false) {
-        // FormControl element
+        // FormControl element with field/group name-value props
         if (child.type === FormControl) {
           const fieldElement = nestedChildren.find(el =>
             ![FormLabel, InputLabel, FormHelperText].includes(el.type)
-            // el.type !== FormLabel
-            // && el.type !== InputLabel
-            // && el.type !== FormHelperText
             && el.props.name !== undefined
             && el.props.value !== undefined)
-          // name/value group
           if (fieldElement !== undefined) {
             const { name } = fieldElement.props
             return (
@@ -285,17 +282,13 @@ export default class Form extends React.Component {
                 onValueChange={this.onFieldValueChange}
               />
             )
-          // non-name/value group
-          // eslint-disable-next-line
-          }/* else {
-
-          }*/
+          }
         }
         // non-FormControl element
         return (
-          <child.type>
-            {this.cloneChildrenRecursively(nestedChildren)}
-          </child.type>
+          React.cloneElement(child, {
+            children: this.cloneChildrenRecursively(nestedChildren),
+          })
         )
       }
       // add disable functionality to submit button

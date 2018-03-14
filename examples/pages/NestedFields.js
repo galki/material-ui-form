@@ -11,6 +11,7 @@ import {
   FormLabel,
   FormControl,
   FormControlLabel,
+  FormGroup,
   FormHelperText,
 } from 'material-ui/Form'
 import Radio, { RadioGroup } from 'material-ui/Radio'
@@ -66,20 +67,28 @@ export default class NestedFields extends React.Component {
               data-validators="isRequired,isAlpha"
               fullWidth
             />
+
             <fieldset>
-              <legend>Nested</legend>
-              <TextField
-                label="Age"
-                type="text"
-                name="age"
-                helperText="enter your real age :o"
-                value=""
-                data-validators="isInt"
-                required
-                fullWidth
-              />
+              <legend>FormControl Select</legend>
+              <FormControl required>
+                <InputLabel htmlFor="age-helper">Age</InputLabel>
+                <Select
+                  value=""
+                  name="age"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={10}>Teens</MenuItem>
+                  <MenuItem value={20}>Twenties</MenuItem>
+                  <MenuItem value={30}>Thirties</MenuItem>
+                  <MenuItem value="40+">Fourties +</MenuItem>
+                </Select>
+                <FormHelperText>Some important helper text</FormHelperText>
+              </FormControl>
+
               <fieldset>
-                <legend>Nested nested</legend>
+                <legend>TextField native select</legend>
                 <TextField
                   select
                   label="Years left"
@@ -92,12 +101,16 @@ export default class NestedFields extends React.Component {
                   <option value="a lot">A lot</option>
                   <option value="not many">Not many</option>
                 </TextField>
+
                 <fieldset>
-                  <legend>Nested nested nested</legend>
+                  <legend>FormControlLabel and plain Checkbox</legend>
                   <FormControlLabel
-                    control={<Checkbox checked={false} name="use" value="wisely" />}
+                    control={<Checkbox checked={false} name="use1" value="wisely" />}
                     label="I will use them wisely"
                   />
+
+                  <Checkbox checked name="use2" value="awesomely" />
+                  <span>I will use them awesomely</span>
 
                   <FormControl
                     component="fieldset"
@@ -105,7 +118,7 @@ export default class NestedFields extends React.Component {
                     required
                   >
                     <FormLabel component="legend">
-                      Nested nested nested nested (FormControl)
+                      RadioGroup FormControl
                     </FormLabel>
                     <RadioGroup
                       name="certainty"
