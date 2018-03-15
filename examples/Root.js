@@ -14,6 +14,7 @@ import './styles.less'
 import MultiStep from './pages/MultiStep'
 import NestedFields from './pages/NestedFields'
 import CustomValidationMessages from './pages/CustomValidationMessages'
+import CustomValidators from './pages/CustomValidators'
 
 
 const wrapperStyle = {
@@ -39,6 +40,9 @@ const Root = () => (
               </Link>
             </Button>
             <Button>
+              <Link to="/custom-validators">Custom Validators</Link>
+            </Button>
+            <Button>
               <Link to="/stepper">Stepper</Link>
             </Button>
           </Toolbar>
@@ -49,6 +53,7 @@ const Root = () => (
           path="/custom-validation-messages"
           component={CustomValidationMessages}
         />
+        <Route path="/custom-validators" component={CustomValidators} />
         <Route path="/stepper" component={MultiStep} />
       </div>
     </BrowserRouter>

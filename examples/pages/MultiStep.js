@@ -17,10 +17,13 @@ import {
   FormHelperText,
 } from 'material-ui/Form'
 import Radio, { RadioGroup } from 'material-ui/Radio'
+import Divider from 'material-ui/Divider'
 
 import Form from '../../src/index'
 import styles from '../styles'
 
+
+const dividerStyle = { margin: '20px 0' }
 
 const formControlStyle = {
   padding: '20px',
@@ -102,79 +105,34 @@ export default class MultiStep extends Component {
                   required
                   fullWidth
                 />
-                <TextField
-                  label="Email"
-                  type="text"
-                  name="email"
-                  value="alias@example."
-                  data-validators="isEmail"
-                  fullWidth
-                />
-                <Button variant="raised" onClick={this.requestClose}>Cancel</Button>
+                <Divider style={dividerStyle} />
                 <Button variant="raised" onClick={this.clickNext}>Next</Button>
               </Fragment>
             }
 
             {this.state.activeStep === 1 &&
               <Fragment>
-                <TextField
-                  label="Test"
-                  type="text"
-                  name="test"
-                  value=""
-                  data-validators={['isRequired']}
-                  fullWidth
-                />
-
-                <FormControl
-                  component="fieldset"
-                  style={formControlStyle}
-                  data-validators={['isRequired']}
-                >
-                  <FormLabel component="legend">
-                    Nested nested nested nested (FormControl)
-                  </FormLabel>
-                  <RadioGroup
-                    name="certainty"
-                    value=""
-                  >
-                    <FormControlLabel
-                      value="high"
-                      control={<Radio />}
-                      label="I swear"
-                    />
-                    <FormControlLabel
-                      value="soso"
-                      control={<Radio />}
-                      label="Probably"
-                    />
-                    <FormControlLabel
-                      value="low"
-                      control={<Radio />}
-                      label="Maybe"
-                    />
-                  </RadioGroup>
-                  <FormHelperText>Be honest</FormHelperText>
-                </FormControl>
-
                 {this.state.amounts.map((amount, i) => (
-                  <TextField
-                    key={amount}
-                    select
-                    label="Amount"
-                    helperText="Amount should be an integer"
-                    name={`amounts[${i}]`}
-                    value=""
-                    data-validators="isInt"
-                    required
-                    margin="normal"
-                    fullWidth
-                  >
-                    <MenuItem value="0">Zero</MenuItem>
-                    <MenuItem value={10.5}>Ten and a half</MenuItem>
-                    <MenuItem value="20">Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </TextField>
+                  // eslint-disable-next-line react/no-array-index-key
+                  <Fragment key={amount + i}>
+                    <TextField
+                      select
+                      label="Amount"
+                      helperText="Amount should be an integer"
+                      name={`amounts[${i}]`}
+                      value=""
+                      data-validators="isInt"
+                      required
+                      margin="normal"
+                      fullWidth
+                    >
+                      <MenuItem value="0">Zero</MenuItem>
+                      <MenuItem value={10.5}>Ten and a half</MenuItem>
+                      <MenuItem value="20">Twenty</MenuItem>
+                      <MenuItem value={30}>Thirty</MenuItem>
+                    </TextField>
+                    <Divider style={dividerStyle} />
+                  </Fragment>
                 ))}
                 <Button variant="raised" onClick={this.addAmount}>Add amount</Button>
                 <Button variant="raised" onClick={this.clickBack}>Back</Button>

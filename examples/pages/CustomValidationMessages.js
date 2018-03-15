@@ -4,18 +4,18 @@ import PropTypes from 'prop-types'
 /* eslint-disable import/no-extraneous-dependencies */
 import Grid from 'material-ui/Grid'
 import Button from 'material-ui/Button'
-import TextField from 'material-ui/TextField'
 import Divider from 'material-ui/Divider'
+import TextField from 'material-ui/TextField'
 import { withStyles } from 'material-ui/styles'
 /* eslint-enable import/no-extraneous-dependencies */
 
-import Form, { validationMessageMap } from '../../src/index'
+import Form, { messageMap } from '../../src/index'
 import styles from '../styles'
 
 
 const dividerStyle = { margin: '20px 0' }
 
-const customValidationMessageMap = Object.assign(validationMessageMap, {
+const customMessageMap = Object.assign(messageMap, {
   myCustomPrefix_isInt: 'Invalid integer',
   myCustomPrefix_isEmail: 'メールアドレスが無効です',
   myCustomPrefix_isIn: '「{0}」のいずれかを記入してください',
@@ -51,13 +51,15 @@ export default class CustomValidationMessages extends React.Component {
         <Grid item xs className={classes.gridItem}>
           <Form
             onSubmit={this.submit}
-            validationMessageMap={customValidationMessageMap}
-            validationMessageKeyPrefix="myCustomPrefix_"
+            validation={{
+              messageMap: customMessageMap,
+              messageKeyPrefix: 'myCustomPrefix_',
+            }}
           >
             <TextField
-              label="Name"
+              label="Integer"
               type="text"
-              name="name"
+              name="integer"
               value="this field's validation message is like the default one"
               data-validators="isInt"
               fullWidth

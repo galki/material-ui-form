@@ -13,7 +13,11 @@ import { InputLabel } from 'material-ui/Input'
 import FormControlClone from './FormControlClone'
 import FormControlLabelClone from './FormControlLabelClone'
 import FieldClone from './FieldClone'
-import { validate } from '../validation'
+import {
+  messageMap,
+  validate,
+  validators as defaultValidators,
+} from '../validation'
 
 
 const FIELD_VALIDATORS_PROP_NAME = 'data-validators'
@@ -80,25 +84,33 @@ export default class Form extends React.Component {
       PropTypes.string,
       PropTypes.bool,
     ]),
-    validate: PropTypes.func,
     validations: PropTypes.object,
-    validationMessageMap: PropTypes.object,
-    validationMessageKeyPrefix: PropTypes.string,
+    config: PropTypes.shape({
+      messageMap: PropTypes.object,
+      messageMapKeyPrefix: PropTypes.string,
+      validators: PropTypes.object,
+      validate: PropTypes.func,
+    }),
     onSubmit: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
     disableSubmitButtonOnError: true,
     requiredValidatorName: REQUIRED_VALIDATOR_NAME,
-    validate: null,
+    config: {},
     validations: {},
-    validationMessageMap: {},
-    validationMessageKeyPrefix: '',
   }
 
   constructor(props) {
     super(props)
-    this.validate = props.validate || validate
+
+    this.config = Object.assign({
+      messageMap,
+      messageMapKeyPrefix: '',
+      validators: defaultValidators,
+      validate,
+    }, props.config)
+
     this.state = {
       disableSubmitButton: false,
       fields: {},
@@ -201,13 +213,7 @@ export default class Form extends React.Component {
 
   validateField = (name, value) => {
     const field = this.state.fields[name]
-
-    const validations = this.validate(
-      value,
-      field.validators,
-      this.props.validationMessageMap,
-      this.props.validationMessageKeyPrefix
-    )
+    const validations = this.config.validate(value, field.validators, this.config)
 
     field.validations = validations
     this.setState({
