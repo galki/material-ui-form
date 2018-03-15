@@ -9,18 +9,15 @@ import TextField from 'material-ui/TextField'
 import { withStyles } from 'material-ui/styles'
 /* eslint-enable import/no-extraneous-dependencies */
 
-import Form, { messageMap } from '../../src/index'
+import Form, { messageMap, validators } from '../../src/index'
 import styles from '../styles'
 
 
 const dividerStyle = { margin: '20px 0' }
 
+validators.isBorat = value => value === 'borat'
 const customMessageMap = Object.assign(messageMap, {
-  myCustomPrefix_isInt: 'Invalid integer',
-  myCustomPrefix_isEmail: 'メールアドレスが無効です',
-  myCustomPrefix_isIn: '「{0}」のいずれかを記入してください',
-  myCustomPrefix_isWhitelisted: '文字は「{0}」から選択してください',
-  myCustomPrefix_isLength: '文字数は{0}以上{1}以下であることは条件',
+  isBorat: 'NAAAAAT! You can only write "borat" lol',
 })
 
 @withStyles(styles)
@@ -53,55 +50,16 @@ export default class CustomValidators extends React.Component {
             onSubmit={this.submit}
             validation={{
               messageMap: customMessageMap,
-              messageKeyPrefix: 'myCustomPrefix_',
+              validators,
             }}
           >
             <TextField
-              label="Integer"
+              label="Write anything..."
               type="text"
-              name="integer"
-              value="this field's validation message is like the default one"
-              data-validators="isInt"
-              fullWidth
-            />
-            <Divider style={dividerStyle} />
-
-            <TextField
-              label="Email"
-              type="text"
-              name="email"
-              value="but@thisonesisnt."
-              data-validators="isEmail"
-              fullWidth
-            />
-            <Divider style={dividerStyle} />
-
-            <TextField
-              label="Inclusion"
-              type="number"
-              name="number"
-              value="3"
-              data-validators={[{ isIn: [1, 2, 4] }]}
-              fullWidth
-            />
-            <Divider style={dividerStyle} />
-
-            <TextField
-              label="Whitelisted characters"
-              type="text"
-              name="whitelisted"
-              value="abc1234"
-              data-validators={[{ isWhitelisted: 'abc123' }]}
-              fullWidth
-            />
-            <Divider style={dividerStyle} />
-
-            <TextField
-              label="Lenght test"
-              type="text"
-              name="length"
-              value="abc"
-              data-validators={[{ isLength: { min: 4, max: 5 } }]}
+              name="trickster"
+              value=""
+              helperText="this is not a trick"
+              data-validators="isBorat"
               fullWidth
             />
             <Divider style={dividerStyle} />

@@ -17,11 +17,11 @@ import {
   messageMap,
   validate,
   validators as defaultValidators,
+  constants as validationConstants,
 } from '../validation'
 
 
 const FIELD_VALIDATORS_PROP_NAME = 'data-validators'
-const REQUIRED_VALIDATOR_NAME = 'isRequired'
 
 function checkElementInteractivity(component) {
   const whitelist = [
@@ -80,36 +80,36 @@ export default class Form extends React.Component {
   static propTypes = {
     children: PropTypes.array.isRequired,
     disableSubmitButtonOnError: PropTypes.bool,
-    requiredValidatorName: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.bool,
-    ]),
-    validations: PropTypes.object,
-    config: PropTypes.shape({
+    validation: PropTypes.shape({
       messageMap: PropTypes.object,
       messageMapKeyPrefix: PropTypes.string,
+      requiredValidatorName: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.bool,
+      ]),
       validators: PropTypes.object,
       validate: PropTypes.func,
     }),
+    validations: PropTypes.object,
     onSubmit: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
     disableSubmitButtonOnError: true,
-    requiredValidatorName: REQUIRED_VALIDATOR_NAME,
-    config: {},
+    validation: {},
     validations: {},
   }
 
   constructor(props) {
     super(props)
 
-    this.config = Object.assign({
+    this.validation = Object.assign({
       messageMap,
       messageMapKeyPrefix: '',
+      requiredValidatorName: validationConstants.REQUIRED_VALIDATOR_NAME,
       validators: defaultValidators,
       validate,
-    }, props.config)
+    }, props.validation)
 
     this.state = {
       disableSubmitButton: false,
@@ -149,7 +149,7 @@ export default class Form extends React.Component {
       })
     // other inputs
     } else if (!_.isBoolean(checked)) {
-      const { requiredValidatorName } = this.props
+      const { requiredValidatorName } = this.validation
       if (!_.has(this.state.fields, name)) {
         const validators = extractFieldValidators(fieldProps)
 
@@ -172,7 +172,7 @@ export default class Form extends React.Component {
             },
           })
 
-          if (!_.isEmpty(validators) && !_.isEmpty(value)) {
+          if (!_.isEmpty(value)) {
             this.validateField(name, value)
           }
         })
@@ -213,18 +213,21 @@ export default class Form extends React.Component {
 
   validateField = (name, value) => {
     const field = this.state.fields[name]
-    const validations = this.config.validate(value, field.validators, this.config)
+    if (!_.isEmpty(field.validators)) {
+      const { validation } = this
+      const validations = validation.validate(value, field.validators, validation)
 
-    field.validations = validations
-    this.setState({
-      fields: {
-        ...this.state.fields,
-        [name]: field,
-      },
-    })
+      field.validations = validations
+      this.setState({
+        fields: {
+          ...this.state.fields,
+          [name]: field,
+        },
+      })
 
-    if (!_.isEmpty(validations)) {
-      this.disableSubmitButton()
+      if (!_.isEmpty(validations)) {
+        this.disableSubmitButton()
+      }
     }
   }
 
@@ -329,7 +332,7 @@ export default class Form extends React.Component {
           onConstruct={this.onFieldConstruct}
           onToggle={this.onFieldToggle}
           onValueChange={this.onFieldValueChange}
-          requiredValidatorName={this.props.requiredValidatorName}
+          requiredValidatorName={this.validation.requiredValidatorName}
         >
           {child}
         </FieldClone>

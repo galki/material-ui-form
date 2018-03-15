@@ -1,6 +1,8 @@
 import messageMap from './messageMap'
 import validators from './validators'
 
+export constants from './constants'
+
 
 function sprintf(str, args) {
   let predicate
