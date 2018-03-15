@@ -78,8 +78,11 @@ function getFieldTemplate() {
 
 export default class Form extends React.Component {
   static propTypes = {
+    autoComplete: PropTypes.string,
     children: PropTypes.array.isRequired,
     disableSubmitButtonOnError: PropTypes.bool,
+    onSubmit: PropTypes.func.isRequired,
+    onValuesChange: PropTypes.func,
     validation: PropTypes.shape({
       messageMap: PropTypes.object,
       messageMapKeyPrefix: PropTypes.string,
@@ -91,11 +94,12 @@ export default class Form extends React.Component {
       validate: PropTypes.func,
     }),
     validations: PropTypes.object,
-    onSubmit: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
+    autoComplete: "off",
     disableSubmitButtonOnError: true,
+    onValuesChange: null,
     validation: {},
     validations: {},
   }
@@ -158,6 +162,14 @@ export default class Form extends React.Component {
         }
         const isRequired = required || validators.includes(requiredValidatorName)
 
+        // set any validations on first construct
+        let validations = []
+        if (!_.has(this.state.fields, name)
+          && _.has(this.props.validations, name)
+        ) {
+          validations = this.props.validations[name]
+        }
+
         _.defer(() => {
           this.setState({
             fields: {
@@ -167,6 +179,7 @@ export default class Form extends React.Component {
                 isRequired,
                 pristineValue: value,
                 validators,
+                validations,
                 value,
               },
             },
@@ -196,6 +209,12 @@ export default class Form extends React.Component {
 
       if (isValidForm(this.state.fields)) {
         this.enableSubmitButton()
+        if (this.props.onValuesChange !== null) {
+          this.props.onValuesChange(
+            getFieldValues(this.state.fields),
+            getPristineFieldValues(this.state.fields)
+          )
+        }
       }
 
       this.validateField(name, value)
@@ -231,6 +250,23 @@ export default class Form extends React.Component {
     }
   }
 
+  reset = () => {
+    const { fields } = this.state
+    _.defer(() => {
+      _.each(fields, (field, name) => {
+        this.setState({
+          fields: {
+            ...this.state.fields,
+            [name]: {
+              ...this.state.fields[name],
+              value: '',
+            },
+          },
+        })
+      })
+    })
+  }
+
   submit = (event) => {
     event.preventDefault()
     const { fields } = this.state
@@ -240,12 +276,14 @@ export default class Form extends React.Component {
       }
     })
 
-    if (isValidForm(fields)) {
-      this.props.onSubmit(
-        getFieldValues(fields),
-        getPristineFieldValues(fields)
-      )
-    }
+    _.defer(() => {
+      if (!this.state.disableSubmitButton || isValidForm(fields)) {
+        this.props.onSubmit(
+          getFieldValues(fields),
+          getPristineFieldValues(fields)
+        )
+      }
+    })
   }
 
   enableSubmitButton() {
@@ -332,7 +370,7 @@ export default class Form extends React.Component {
           onConstruct={this.onFieldConstruct}
           onToggle={this.onFieldToggle}
           onValueChange={this.onFieldValueChange}
-          requiredValidatorName={this.validation.requiredValidatorName}
+          useNativeRequiredValidator={!this.validation.requiredValidatorName}
         >
           {child}
         </FieldClone>
@@ -343,8 +381,9 @@ export default class Form extends React.Component {
   render() {
     return (
       <form
+        onReset={this.reset}
         onSubmit={this.submit}
-        autoComplete="false"
+        autoComplete={this.props.autoComplete}
       >
         { this.cloneChildrenRecursively(this.props.children) }
       </form>

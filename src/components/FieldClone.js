@@ -9,8 +9,8 @@ function getElementFromProps(props) {
   return React.Children.only(props.children)
 }
 
-function getRequiredProp(required, requiredValidatorName) {
-  if (!_.isEmpty(requiredValidatorName)) {
+function getRequiredProp(required, useNativeRequiredValidator) {
+  if (!useNativeRequiredValidator) {
     return false
   }
   return required
@@ -27,7 +27,7 @@ function makeIsCheckableAndChecked(el) {
 
 function makeLabel(el, props) {
   const label = el.props.label || ''
-  return props.field.isRequired && !_.isEmpty(props.requiredValidatorName)
+  return props.field.isRequired && !props.useNativeRequiredValidator
     ? `${label} *`
     : label
 }
@@ -58,10 +58,7 @@ export default class FieldClone extends React.Component {
     onToggle: PropTypes.func.isRequired,
     onValueChange: PropTypes.func.isRequired,
     onConstruct: PropTypes.func.isRequired,
-    requiredValidatorName: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.bool,
-    ]).isRequired,
+    useNativeRequiredValidator: PropTypes.bool.isRequired,
   }
 
   static defaultProps = {
@@ -148,7 +145,7 @@ export default class FieldClone extends React.Component {
         onChange: el.props.onChange || this.onChange,
         required: getRequiredProp(
           el.props.required,
-          this.props.requiredValidatorName
+          this.props.useNativeRequiredValidator
         ),
       })
     } else {

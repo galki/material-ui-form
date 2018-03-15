@@ -144,6 +144,7 @@ export default class NestedFields extends React.Component {
                 </fieldset>
               </fieldset>
             </fieldset>
+            <Button variant="raised" type="reset">Reset</Button>
             <Button variant="raised" type="submit">Submit</Button>
           </Form>
         </Grid>

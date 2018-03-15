@@ -16,6 +16,7 @@ import NestedFields from './pages/NestedFields'
 import CustomValidationMessages from './pages/CustomValidationMessages'
 import CustomValidators from './pages/CustomValidators'
 import CustomValidateFunction from './pages/CustomValidateFunction'
+import MiscProps from './pages/MiscProps'
 
 
 const wrapperStyle = {
@@ -51,6 +52,9 @@ const Root = () => (
             <Button>
               <Link to="/stepper">Stepper</Link>
             </Button>
+            <Button>
+              <Link to="/misc-props">Misc Props</Link>
+            </Button>
           </Toolbar>
         </AppBar>
 
@@ -65,6 +69,7 @@ const Root = () => (
           component={CustomValidateFunction}
         />
         <Route path="/stepper" component={MultiStep} />
+        <Route path="/misc-props" component={MiscProps} />
       </div>
     </BrowserRouter>
   </div>

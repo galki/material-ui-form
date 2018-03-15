@@ -9,39 +9,40 @@ import TextField from 'material-ui/TextField'
 import { withStyles } from 'material-ui/styles'
 /* eslint-enable import/no-extraneous-dependencies */
 
+
 import Form from '../../src/index'
 import styles from '../styles'
 
 
 const dividerStyle = { margin: '20px 0' }
 
-function validate(value, fieldValidators, options) {
-  const fieldValidations = []
-  fieldValidators.forEach((validator) => {
-    const validation = {
-      code: String(validator),
-      message: 'its invalid so maybe try harder...',
-    }
-    if (_.has(options, 'genericMessage')) {
-      validation.message = options.genericMessage
-    }
-    fieldValidations.push(validation)
-  })
-  return fieldValidations
-}
-
-const validationOptions = {
-  genericMessage: 'yeah... *tisk*',
+const mockServerValidations = {
+  name: [{ code: 'isInvalid', message: 'such invalid...' }],
 }
 
 @withStyles(styles)
-export default class CustomValidateFunction extends React.Component {
+export default class MiscProps extends React.Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
   }
 
   state = {
     onSubmitValues: null,
+    mockServerValidations,
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      const newMockServerValidations = {
+        name: [{ message: 'such WOOOOOOOOOW...' }],
+      }
+      this.setState({ mockServerValidations: newMockServerValidations })
+    }, 1500)
+  }
+
+  handleValuesChange = (values, pristineValues) => {
+    // eslint-disable-next-line no-console
+    console.log('new values:', values, 'pristine values:', pristineValues)
   }
 
   submit = (values, pristineValues) => {
@@ -61,24 +62,23 @@ export default class CustomValidateFunction extends React.Component {
       >
         <Grid item xs className={classes.gridItem}>
           <Form
+            autoComplete="on"
+            disableSubmitButtonOnError={false}
             onSubmit={this.submit}
-            validation={{
-              requiredValidatorName: false,
-              validate,
-              ...validationOptions,
-            }}
+            onValuesChange={this.handleValuesChange}
+            validations={this.state.mockServerValidations}
           >
             <TextField
-              label="Whatever you write isn't gonna be good enough"
+              label="Name"
               type="text"
-              name="test"
-              value=""
-              data-validators="whatever - our custom validator will ignore this"
-              required
+              name="name"
+              value="doge"
               fullWidth
             />
+
             <Divider style={dividerStyle} />
 
+            <Button variant="raised" type="reset">Reset</Button>
             <Button variant="raised" type="submit">Submit</Button>
           </Form>
         </Grid>
