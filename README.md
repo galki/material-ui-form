@@ -14,7 +14,7 @@ The wrapper keeps all values and validations in its own state, allowing for func
 
 #### conditions
 
-- only supports [Material-UI](https://material-ui-1dab0.firebaseapp.com/getting-started/usage/) fields (and custom material-ui fields)
+- only supports [Material-UI](https://material-ui-1dab0.firebaseapp.com/getting-started/usage/) fields (and custom Material-UI fields)
 - must set `value` and `name` props on every field
 - remove any `onChange` and `onBlur` props (unless you want to customize that logic)
 - set a `data-validators` prop on a field to specify its validators
@@ -30,6 +30,10 @@ _validator.js_ validators are extended with these handy bad-boys:
 - isSerial: _/^([-\s\da-zA-Z]+)$/_
 - isSize: _value >= min && value <= max_
 - isTime
+
+#### _NOTE!_
+
+While most Material-UI field components are supported there may be some that are not. Support for Material-UI field component props is another issue. Please [check here](https://github.com/unitedhubs/material-ui-form/issues/5) to see what is currently tested to be working.  
 
 ## Setup
 

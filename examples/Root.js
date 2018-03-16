@@ -71,7 +71,7 @@ const Root = () => (
           </Toolbar>
         </AppBar>
 
-        <Route exact path="/" component={Readme} />
+        <Route exact path="/" component={NestedFields} />
         <Route
           path="/custom-validation-messages"
           component={CustomValidationMessages}
