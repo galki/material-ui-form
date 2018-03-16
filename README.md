@@ -71,7 +71,7 @@ Prop                          | Description               | Required
 ## Examples
 
 #### Nested fields:
-```javascript
+```jsx
 import Form from 'material-ui-form'
 
 
@@ -118,7 +118,7 @@ class MyForm extends React.Component {
 ```
 
 #### Custom validation messages:
-```javascript
+```jsx
 import Form, { messageMap } from '../../src/index'
  
 
@@ -188,7 +188,7 @@ class MyForm extends React.Component {
 ```
 
 #### Custom validators:
-```javascript
+```jsx
 import Form, { messageMap, validators } from '../../src/index'
  
 
@@ -228,7 +228,7 @@ class MyForm extends React.Component {
 ```
 
 #### Custom validation logic:
-```javascript
+```jsx
 import Form from 'material-ui-form'
  
 
@@ -283,7 +283,7 @@ class MyForm extends React.Component {
 ```
 
 #### Server validations:
-```javascript
+```jsx
 import Form from 'material-ui-form'
  
 
@@ -338,7 +338,7 @@ class MyForm extends React.Component {
 ```
 
 #### Form autoComplete and "on error" submission:
-```javascript
+```jsx
 import Form from 'material-ui-form'
  
 
@@ -370,7 +370,7 @@ class MyForm extends React.Component {
 ```
 
 #### Getting form values on field change:
-```javascript
+```jsx
 import Form from 'material-ui-form'
  
 
@@ -394,7 +394,6 @@ class MyForm extends React.Component {
           type="text"
           name="name"
           value="doge"
-          data-validators="isInt"
         />
 
         <Button variant="raised" type="submit">Submit</Button>
@@ -405,7 +404,7 @@ class MyForm extends React.Component {
 ```
 
 #### Multi-page form:
-```javascript
+```jsx
 import Stepper, { Step, StepLabel } from 'material-ui/Stepper'
 import Form from 'material-ui-form'
  
