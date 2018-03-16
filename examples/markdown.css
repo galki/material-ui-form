@@ -14,32 +14,32 @@
   text-decoration: underline;
 }
 .markdown h1 {
-  font-size: 2.2em;
-  font-weight: bold;
-  margin: 1.5em 0 1em 0;
+  padding-bottom: 0.3em;
+  font-size: 2em;
+  border-bottom: 1px solid #eaecef;
 }
 .markdown h2 {
-  font-size: 1.8em;
-  font-weight: bold;
-  margin: 1.275em 0 0.85em 0;
+  padding-bottom: 0.3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid #eaecef;
 }
 .markdown h3 {
-  font-size: 1.6em;
+  font-size: 1.25em;
   font-weight: bold;
   margin: 1.125em 0 0.75em 0;
 }
 .markdown h4 {
-  font-size: 1.4em;
+  font-size: 1em;
   font-weight: bold;
   margin: 0.99em 0 0.66em 0;
 }
 .markdown h5 {
-  font-size: 1.2em;
+  font-size: 0.8em;
   font-weight: bold;
   margin: 0.855em 0 0.57em 0;
 }
 .markdown h6 {
-  font-size: 1em;
+  font-size: 0.6px;
   font-weight: bold;
   margin: 0.75em 0 0.5em 0;
 }
