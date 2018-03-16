@@ -18,6 +18,6 @@ npm install --save material-ui-form
 - allows to pass a custom validation function
 - allows to pass validations to the form (ie server errors)
 
-#### example
+#### examples
 
 run `npm start`
