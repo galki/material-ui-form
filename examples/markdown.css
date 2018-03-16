@@ -2,8 +2,9 @@
  * standard markdown style
  */
 .markdown {
-  font-family: "Hiragino Sans GB", "Microsoft YaHei", "STHeiti", "SimSun", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", 'Segoe UI', AppleSDGothicNeo-Medium, 'Malgun Gothic', Verdana, Tahoma, sans-serif;
+  font-family: "-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol'";
   padding: 20px;
+  line-height: 1.5;
 }
 .markdown a {
   text-decoration: none;
@@ -70,7 +71,8 @@
 }
 .markdown li {
   display: list-item;
-  line-height: 1.4em;
+  line-height: 1.8em;
+  font-size: 15px;
 }
 .markdown blockquote {
   margin: 1em 20px;
@@ -89,19 +91,18 @@
   word-wrap: break-word;
 }
 .markdown pre {
-  border-radius: 3px;
-  word-wrap: break-word;
-  border: 1px solid #cccccc;
+  padding: 16px;
   overflow: auto;
-  padding: .5em;
+  font-size: 15px;
+  line-height: 1.45;
+  background-color: #f6f8fa;
+  border-radius: 3px;
 }
 .markdown pre code {
   border: 0;
-  display: block;
 }
 .markdown pre > code {
   font-family: Consolas, Inconsolata, Courier, monospace;
-  font-weight: bold;
   white-space: pre;
   margin: 0;
 }
@@ -162,10 +163,16 @@
 .github {
   padding: 20px;
   font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", "STHeiti", "SimSun", "Segoe UI", AppleSDGothicNeo-Medium, 'Malgun Gothic', Arial, freesans, sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   background: #ffffff;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+
+  max-width: 1020px;
+  padding: 45px;
+  color: rgb(36, 41, 46);
+  margin: 0 auto;
+  border: 1px solid #ddd;
 }
 .github a {
   color: #3269a0;
