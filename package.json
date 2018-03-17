@@ -1,7 +1,7 @@
 {
   "name": "material-ui-form",
   "version": "1.0.0-alpha.7",
-  "description": "react form component to manage state and validation for material-ui inputs",
+  "description": "State and validation management for Material-UI form components",
   "main": "dist/main.js",
   "scripts": {
     "build": "webpack -p",
@@ -20,7 +20,10 @@
     "material-ui",
     "react",
     "react-component",
-    "validation"
+    "state-management",
+    "validation",
+    "input",
+    "input-validation"
   ],
   "files": [
     "dist"
