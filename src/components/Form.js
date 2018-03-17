@@ -251,6 +251,8 @@ export default class Form extends React.Component {
   }
 
   reset = () => {
+    console.log('=')
+    
     const { fields } = this.state
     _.defer(() => {
       _.each(fields, (field, name) => {
