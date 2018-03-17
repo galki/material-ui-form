@@ -16,6 +16,7 @@
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
+    "codeFrame": true,
     "ecmaFeatures": {
       "jsx": true
     }
@@ -30,8 +31,8 @@
     "class-methods-use-this": 0,
     "comma-dangle": [2, "always-multiline"],
     "constructor-super": 1,
-    "eol-last": 0,
-    "filenames/match-exported": 2,
+    "eol-last": [2, "always"],
+    "filenames/match-exported": [2, [null]],
     "import/default": 2,
     "import/export": 2,
     "import/extensions": 0,
@@ -40,8 +41,9 @@
     "import/no-unresolved": 1,
     "import/prefer-default-export": 0,
     "import/unambiguous": 0,
-    "indent": 0,
+    "indent": [2, 2],
     "jsx-a11y/anchor-is-valid": 0,
+    "linebreak-style": [2, "unix"],
     "max-len": [1, {
       "code": 85,
       "ignoreComments": true,
