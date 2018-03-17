@@ -97,7 +97,7 @@ export default class Form extends React.Component {
   }
 
   static defaultProps = {
-    autoComplete: "off",
+    autoComplete: 'off',
     disableSubmitButtonOnError: true,
     onValuesChange: null,
     validation: {},
