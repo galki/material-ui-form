@@ -1,18 +1,17 @@
-[![npm package](https://img.shields.io/npm/v/material-ui-form.svg)](https://www.npmjs.com/package/material-ui-form)
+[![npm](https://img.shields.io/npm/v/material-ui-form.svg)](https://www.npmjs.com/package/material-ui-form)
 [![Build Status](https://travis-ci.org/unitedhubs/material-ui-form.svg?branch=dev)](https://travis-ci.org/unitedhubs/material-ui-form)
+[![Coverage Status](https://coveralls.io/repos/unitedhubs/material-ui-form/badge.svg)](https://coveralls.io/r/unitedhubs/material-ui-form)
 [![PeerDependencies](https://img.shields.io/david/peer/unitedhubs/material-ui-form.svg)](https://david-dm.org/unitedhubs/material-ui-form?type=peer)
-[![Dependencies](https://img.shields.io/david/unitedhubs/material-ui-form.svg)](https://david-dm.org/unitedhubs/material-ui-form)
-[![DevDependencies](https://img.shields.io/david/dev/unitedhubs/material-ui-form.svg)](https://david-dm.org/unitedhubs/material-ui-form?type=dev)
 
 ## About
 
-_material-ui-form_ is a React form component for Material-UI form fields. Use it instead of `<form>` to get state and validation management "as-is" - no need to configure anything or change the nesting structure of the children.
+_material-ui-form_ is a React form component for Material-UI form fields. Use it instead of `<form>` to get state and validation management "as-is" - no need to configure anything or change the nesting structure of the form's elements.
 
-It also supports validation out-of-the-box (using [validator.js](https://github.com/chriso/validator.js)) and allows you to extend its validation messages, validators, and use your own validation logic if you need to.
+It also supports validation out-of-the-box (using [validator.js](https://github.com/chriso/validator.js)) and allows you to customize validation messages, validators, and use your own validation logic if you need to.
 
-This form wrapper keeps all values and validations in its own state, allowing for functionality like steppers (multi-page forms) and conditional form fields.
+Form values and validations are kept in internal state, allowing for functionality like steppers (multi-page forms) and conditional form fields.
 
-#### use and conditions
+#### use and requirements
 
 - requires React 16.2.0 or later
 - only supports [Material-UI](https://material-ui-1dab0.firebaseapp.com/getting-started/usage/) fields (including custom Material-UI fields)

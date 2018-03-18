@@ -1,0 +1,2 @@
+{"E:\\projects\\material-ui-form\\sum.js": {"path":"E:\\projects\\material-ui-form\\sum.js","statementMap":{"0":{"start":{"line":2,"column":2},"end":{"line":2,"column":15}},"1":{"start":{"line":4,"column":0},"end":{"line":4,"column":21}}},"fnMap":{"0":{"name":"sum","decl":{"start":{"line":1,"column":9},"end":{"line":1,"column":12}},"loc":{"start":{"line":1,"column":19},"end":{"line":3,"column":1}},"line":1}},"branchMap":{},"s":{"0":1,"1":1},"f":{"0":1},"b":{},"_coverageSchema":"332fd63041d2c1bcb487cc26dd0d5f7d97098a6c","hash":"7879c3e347e07e09d4227bf7dde856d664c738db"}
+}
