@@ -78,15 +78,10 @@
     "space-in-parens": 0
   },
   "globals": {
-    "firebase": true,
-    "requirejs": true,
-    "window": true,
     "_": true,
+    "describe": true,
     "expect": true,
     "jest": true,
-    "shallow": true,
-    "test": true,
-    "render": true,
-    "mount": true
+    "test": true
   }
 }

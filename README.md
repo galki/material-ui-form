@@ -1,22 +1,22 @@
 [![npm](https://img.shields.io/npm/v/material-ui-form.svg)](https://www.npmjs.com/package/material-ui-form)
 [![Build Status](https://travis-ci.org/unitedhubs/material-ui-form.svg?branch=dev)](https://travis-ci.org/unitedhubs/material-ui-form)
-[![Coverage Status](https://coveralls.io/repos/unitedhubs/material-ui-form/badge.svg)](https://coveralls.io/r/unitedhubs/material-ui-form)
-[![PeerDependencies](https://img.shields.io/david/peer/unitedhubs/material-ui-form.svg)](https://david-dm.org/unitedhubs/material-ui-form?type=peer)
+[![Coverage Status](https://coveralls.io/repos/github/unitedhubs/material-ui-form/badge.svg)](https://coveralls.io/github/unitedhubs/material-ui-form)
+[![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
 
 ## About
 
-_material-ui-form_ is a React form component for Material-UI form fields. Use it instead of `<form>` to get state and validation management "as-is" - no need to configure anything or change the nesting structure of the form's elements.
+_material-ui-form_ is a React form component for Material-UI form fields. Use it instead of `<form>` to get state and validation management "as-is" - there's no need to use different components or alter your current form's nesting structure.
 
-It also supports validation out-of-the-box (using [validator.js](https://github.com/chriso/validator.js)) and allows you to customize validation messages, validators, and use your own validation logic if you need to.
+Validation is supported out-of-the-box (using [validator.js](https://github.com/chriso/validator.js)) and you can customize validation messages, validators, and use your own validation logic if you need to.
 
-Form values and validations are kept in internal state, allowing for functionality like steppers (multi-page forms) and conditional form fields.
+Cases such as steppers (multi-page forms) and conditional form fields are also supported without extra configuration. 
 
 #### use and requirements
 
 - requires React 16.2.0 or later
 - only supports [Material-UI](https://material-ui-1dab0.firebaseapp.com/getting-started/usage/) fields (including custom Material-UI fields)
 - every input field must have `value` and `name` props
-- every input field should NOT have `onChange` and `onBlur` props (unless you need field-specific logic)
+- every input field should NOT have `onChange` and `onBlur` props (unless you need custom field-specific logic)
 - add a `data-validators` prop to any input field (or FormControl / FormControlLabel) to specify validation rules
 
 #### extra validators
