@@ -9,7 +9,7 @@ import TextField from 'material-ui/TextField'
 import FieldClone from '../FieldClone'
 
 
-describe('A suite', () => {
+describe('FieldClone component', () => {
   const field = {
     isPristine: true,
     isRequired: null,
@@ -23,7 +23,7 @@ describe('A suite', () => {
   const onFieldToggle = ({ event, checked }) => {}
   const onFieldValueChange = ({ name, value }) => {}
 
-  const el = shallow(
+  const el = (
     <FieldClone
       key="name"
       field={field}
@@ -42,7 +42,36 @@ describe('A suite', () => {
     </FieldClone>
   )
 
+  const wrapper = shallow(el)
+
+  function checkIfNative(component) {
+    if (component.type.name === undefined) {
+      throw new Error('FieldClone does not support native elements')
+    }
+  }
+
   it('should render without throwing an error', () => {
-    expect(el.find(TextField)).toBeTruthy()
+    const component = renderer.create(el)
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
+  it('should have a single child', () => {
+    expect(wrapper.find(TextField)).toHaveLength(1)
+  })
+
+  it('should not throw', () => {
+    function checkTextFieldType() {
+      checkIfNative({ type: { name: 'TextField' } })
+    }
+    expect(() => checkTextFieldType()).not.toThrow()
+  })
+
+  it('should have useNativeRequiredValidator prop set to false', () => {
+    expect(wrapper.instance().props.useNativeRequiredValidator).toBe(false)
+  })
+
+  it('should have a rendered label equal to Name', () => {
+    expect(wrapper.props().label).toEqual('Name')
   })
 })
