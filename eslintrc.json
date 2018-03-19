@@ -28,11 +28,13 @@
     "filenames"
   ],
   "rules": {
+    "object-curly-newline": [2, { "minProperties": 5 }],
     "class-methods-use-this": 0,
     "comma-dangle": [2, "always-multiline"],
     "constructor-super": 1,
     "eol-last": [2, "always"],
     "filenames/match-exported": [2, [null]],
+    "function-paren-newline": [2, "consistent"],
     "import/default": 2,
     "import/export": 2,
     "import/extensions": 0,
@@ -81,6 +83,7 @@
     "_": true,
     "describe": true,
     "expect": true,
+    "it": true,
     "jest": true,
     "test": true
   }

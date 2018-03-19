@@ -1,3 +1,5 @@
+import _ from 'lodash' // eslint-disable-line import/no-extraneous-dependencies
+
 import messageMap from './messageMap'
 import validators from './validators'
 
