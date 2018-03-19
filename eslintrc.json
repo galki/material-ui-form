@@ -28,7 +28,7 @@
     "filenames"
   ],
   "rules": {
-    "object-curly-newline": [2, { "minProperties": 5 }],
+    "object-curly-newline": [2, { "minProperties": 5, "consistent": true }],
     "class-methods-use-this": 0,
     "comma-dangle": [2, "always-multiline"],
     "constructor-super": 1,
