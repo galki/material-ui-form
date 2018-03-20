@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow, mount, render } from 'enzyme'
+import { shallow } from 'enzyme'
 import TextField from 'material-ui/TextField'
 
 import FieldClone from '../FieldClone'
@@ -15,9 +15,9 @@ describe('<FieldClone />', () => {
     value: undefined,
   }
 
-  const onFieldConstruct = jest.fn(({ checked, name, required, value }) => {})
-  const onFieldToggle = ({ event, checked }) => {}
-  const onFieldValueChange = ({ name, value }) => {}
+  const onFieldConstruct = jest.fn()
+  const onFieldToggle = jest.fn()
+  const onFieldValueChange = jest.fn()
 
   const wrapper = shallow(
     <FieldClone
@@ -38,7 +38,7 @@ describe('<FieldClone />', () => {
     </FieldClone>
   )
 
-  it('should render without throwing an error', () => {
+  it('should render', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
@@ -65,11 +65,51 @@ describe('<FieldClone />', () => {
     expect(testNameAndValueProps).not.toThrow()
   })
 
-  it('should have a rendered child with an undefined value prop', () => {
-    expect(wrapper.prop('value')).toBeUndefined()
+  it('should have a set state', () => {
+    expect(wrapper.state()).toMatchObject({
+      checked: null,
+      helperText: undefined,
+      isError: false,
+      value: undefined,
+    })
   })
 
   it('should call onConstruct', () => {
     expect(wrapper.instance().props.onConstruct).toHaveBeenCalled()
+  })
+
+  it('should have a rendered child with an undefined value prop', () => {
+    expect(wrapper.prop('value')).toBeUndefined()
+  })
+
+  it('should have a rendered label', () => {
+    expect(wrapper.state('checked')).toBeNull()
+    expect(wrapper.prop('label')).toBeDefined()
+  })
+
+  it('should handle onChange events', () => {
+    const value = 'x'
+    const event = { target: { value } }
+    wrapper.find(TextField).simulate('change', event)
+    expect(wrapper.state()).toMatchObject({
+      helperText: undefined,
+      isError: false,
+      value,
+    })
+  })
+
+  it('should handle onBlur events', () => {
+    const value = 'x'
+    const event = { target: { value } }
+    const { onValueChange } = wrapper.instance().props
+    wrapper.find(TextField).simulate('blur', event)
+    expect(onValueChange).toBeCalledWith(wrapper.prop('name'), value)
+  })
+
+  it('should update props', () => {
+    const value = 'x'
+    wrapper.setProps({ field: { value, validations: [] } })
+    expect(wrapper.instance().props.field.validations).toBeDefined()
+    expect(wrapper.state('value')).toEqual(value)
   })
 })

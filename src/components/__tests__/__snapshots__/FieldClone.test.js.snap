@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<FieldClone /> should render without throwing an error 1`] = `
+exports[`<FieldClone /> should render 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
@@ -32,8 +32,8 @@ ShallowWrapper {
         ],
       }
     }
-    onToggle={[Function]}
-    onValueChange={[Function]}
+    onToggle={[MockFunction]}
+    onValueChange={[MockFunction]}
     useNativeRequiredValidator={false}
   >
     <TextField
