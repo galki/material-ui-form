@@ -35,8 +35,8 @@ export const createValidation = (validatorName, args, config) => {
 
   let code = validatorName
   // first check if prefix code exists
-  if (!validatorName.startsWith(config.messageKeyPrefix)) {
-    const prefixedCode = `${config.messageKeyPrefix}${validatorName}`
+  if (!validatorName.startsWith(config.messageMapKeyPrefix)) {
+    const prefixedCode = `${config.messageMapKeyPrefix}${validatorName}`
     if (_.has(validationMessageMap, prefixedCode)) {
       code = prefixedCode
     }

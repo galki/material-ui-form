@@ -1,6 +1,6 @@
 import isAlias from '../isAlias'
 
 
-test('isAlias is true', () => {
+it('should be an alias', () => {
   expect(isAlias('azAZ09-_.')).toBe(true)
 })

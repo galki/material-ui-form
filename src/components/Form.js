@@ -269,21 +269,21 @@ export default class Form extends React.Component {
 
   submit = (event) => {
     event.preventDefault()
+    let isValid = true
     const { fields } = this.state
     _.each(fields, (field, name) => {
       if (field.isRequired && field.value === '') {
         this.validateField(name, '')
+        isValid = false
       }
     })
 
-    _.defer(() => {
-      if (!this.state.disableSubmitButton || isValidForm(fields)) {
-        this.props.onSubmit(
-          getFieldValues(fields),
-          getPristineFieldValues(fields)
-        )
-      }
-    })
+    if (isValid) {
+      this.props.onSubmit(
+        getFieldValues(fields),
+        getPristineFieldValues(fields)
+      )
+    }
   }
 
   enableSubmitButton() {
