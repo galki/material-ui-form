@@ -1,29 +1,25 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react'
 import { shallow, mount, render } from 'enzyme'
-import renderer from 'react-test-renderer'
-/* eslint-enable import/no-extraneous-dependencies */
-
 import TextField from 'material-ui/TextField'
 
 import FieldClone from '../FieldClone'
 
 
-describe('FieldClone component', () => {
+describe('<FieldClone />', () => {
   const field = {
     isPristine: true,
     isRequired: null,
     pristineValue: null,
     validations: [],
     validators: [],
-    value: null,
+    value: undefined,
   }
 
-  const onFieldConstruct = ({ checked, name, required, value }) => {}
+  const onFieldConstruct = jest.fn(({ checked, name, required, value }) => {})
   const onFieldToggle = ({ event, checked }) => {}
   const onFieldValueChange = ({ name, value }) => {}
 
-  const el = (
+  const wrapper = shallow(
     <FieldClone
       key="name"
       field={field}
@@ -42,36 +38,38 @@ describe('FieldClone component', () => {
     </FieldClone>
   )
 
-  const wrapper = shallow(el)
-
-  function checkIfNative(component) {
-    if (component.type.name === undefined) {
-      throw new Error('FieldClone does not support native elements')
-    }
-  }
-
   it('should render without throwing an error', () => {
-    const component = renderer.create(el)
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot()
   })
 
   it('should have a single child', () => {
     expect(wrapper.find(TextField)).toHaveLength(1)
   })
 
-  it('should not throw', () => {
-    function checkTextFieldType() {
-      checkIfNative({ type: { name: 'TextField' } })
+  it('should not throw if field type prop is undefined', () => {
+    function checkTypeName() {
+      if (wrapper.instance().props.children.type.name === undefined) {
+        throw new Error('FieldClone does not support native elements')
+      }
     }
-    expect(() => checkTextFieldType()).not.toThrow()
+    expect(checkTypeName).not.toThrow()
   })
 
-  it('should have useNativeRequiredValidator prop set to false', () => {
-    expect(wrapper.instance().props.useNativeRequiredValidator).toBe(false)
+  it('should not throw if field component name and value are defined', () => {
+    function testNameAndValueProps() {
+      const { name, value } = wrapper.instance().props.children.props
+      if (name === undefined || value === undefined) {
+        throw new Error('FieldClone name and value must be defined')
+      }
+    }
+    expect(testNameAndValueProps).not.toThrow()
   })
 
-  it('should have a rendered label equal to Name', () => {
-    expect(wrapper.props().label).toEqual('Name')
+  it('should have a rendered child with an undefined value prop', () => {
+    expect(wrapper.prop('value')).toBeUndefined()
+  })
+
+  it('should call onConstruct', () => {
+    expect(wrapper.instance().props.onConstruct).toHaveBeenCalled()
   })
 })

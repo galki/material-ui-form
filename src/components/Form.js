@@ -72,7 +72,7 @@ function getFieldTemplate() {
     pristineValue: null,
     validations: [],
     validators: [],
-    value: null,
+    value: undefined,
   }
 }
 

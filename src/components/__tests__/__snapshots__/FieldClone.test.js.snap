@@ -1,45 +1,108 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FieldClone component should render without throwing an error 1`] = `
-<div
-  aria-describedby={undefined}
-  className="MuiFormControl-root-1"
-  data-validators="isRequired,isAlpha"
-  onBlur={[Function]}
-  onFocus={[Function]}
->
-  <label
-    className="MuiFormLabel-root-11 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
-    data-shrink={false}
-    htmlFor={undefined}
+exports[`<FieldClone /> should render without throwing an error 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <FieldClone
+    field={
+      Object {
+        "isPristine": true,
+        "isRequired": null,
+        "pristineValue": null,
+        "validations": Array [],
+        "validators": Array [],
+        "value": undefined,
+      }
+    }
+    onConstruct={
+      [MockFunction] {
+        "calls": Array [
+          Array [
+            Object {
+              "data-validators": "isRequired,isAlpha",
+              "label": "Name",
+              "name": "name",
+              "required": false,
+              "select": false,
+              "type": "text",
+              "value": "mufasa",
+            },
+          ],
+        ],
+      }
+    }
+    onToggle={[Function]}
+    onValueChange={[Function]}
+    useNativeRequiredValidator={false}
   >
-    Name
-  </label>
-  <div
-    className="MuiInput-root-17 MuiInput-formControl-18 MuiInput-underline-21"
-  >
-    <input
-      aria-invalid={false}
-      aria-required={false}
-      autoComplete={undefined}
-      autoFocus={undefined}
-      className="MuiInput-input-25"
-      defaultValue={undefined}
-      disabled={false}
-      id={undefined}
+    <TextField
+      data-validators="isRequired,isAlpha"
+      label="Name"
       name="name"
-      onBlur={[Function]}
-      onChange={[Function]}
-      onFocus={[Function]}
-      onKeyDown={undefined}
-      onKeyUp={undefined}
-      placeholder={undefined}
-      readOnly={undefined}
-      required={undefined}
-      rows={undefined}
+      required={false}
+      select={false}
       type="text"
-      value={null}
+      value="mufasa"
     />
-  </div>
-</div>
+  </FieldClone>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "data-validators": "isRequired,isAlpha",
+      "error": false,
+      "helperText": undefined,
+      "label": "Name",
+      "name": "name",
+      "onBlur": [Function],
+      "onChange": [Function],
+      "required": false,
+      "select": false,
+      "type": "text",
+      "value": undefined,
+    },
+    "ref": null,
+    "rendered": null,
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "data-validators": "isRequired,isAlpha",
+        "error": false,
+        "helperText": undefined,
+        "label": "Name",
+        "name": "name",
+        "onBlur": [Function],
+        "onChange": [Function],
+        "required": false,
+        "select": false,
+        "type": "text",
+        "value": undefined,
+      },
+      "ref": null,
+      "rendered": null,
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
 `;
