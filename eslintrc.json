@@ -28,7 +28,6 @@
     "filenames"
   ],
   "rules": {
-    "object-curly-newline": [2, { "minProperties": 5, "consistent": true }],
     "class-methods-use-this": 0,
     "comma-dangle": [2, "always-multiline"],
     "constructor-super": 1,
@@ -65,6 +64,7 @@
     "no-unreachable": 1,
     "no-unused-expressions": 1,
     "no-unused-vars": [1, { "argsIgnorePattern": "^_" }],
+    "object-curly-newline": [2, { "minProperties": 5, "consistent": true }],
     "prefer-template": 0,
     "quotes": [2, "single"],
     "react/forbid-prop-types": [2, { "forbid": ["any"] }],

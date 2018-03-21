@@ -1,11 +1,13 @@
 import React from 'react'
 import { shallow } from 'enzyme'
+import toJson from 'enzyme-to-json'
+
 import TextField from 'material-ui/TextField'
 
 import FieldClone from '../FieldClone'
 
 
-describe('<FieldClone />', () => {
+describe('<FieldClone>:<TextField>', () => {
   const field = {
     isPristine: true,
     isRequired: null,
@@ -14,14 +16,12 @@ describe('<FieldClone />', () => {
     validators: [],
     value: undefined,
   }
-
   const onFieldConstruct = jest.fn()
   const onFieldToggle = jest.fn()
   const onFieldValueChange = jest.fn()
 
   const wrapper = shallow(
     <FieldClone
-      key="name"
       field={field}
       onConstruct={onFieldConstruct}
       onToggle={onFieldToggle}
@@ -39,7 +39,7 @@ describe('<FieldClone />', () => {
   )
 
   it('should render', () => {
-    expect(wrapper).toMatchSnapshot()
+    expect(toJson(wrapper)).toMatchSnapshot()
   })
 
   it('should have a single child', () => {
@@ -65,7 +65,7 @@ describe('<FieldClone />', () => {
     expect(testNameAndValueProps).not.toThrow()
   })
 
-  it('should have a set state', () => {
+  it('should set state', () => {
     expect(wrapper.state()).toMatchObject({
       checked: null,
       helperText: undefined,

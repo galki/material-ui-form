@@ -1,108 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<FieldClone /> should render 1`] = `
-ShallowWrapper {
-  "length": 1,
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <FieldClone
-    field={
-      Object {
-        "isPristine": true,
-        "isRequired": null,
-        "pristineValue": null,
-        "validations": Array [],
-        "validators": Array [],
-        "value": undefined,
-      }
-    }
-    onConstruct={
-      [MockFunction] {
-        "calls": Array [
-          Array [
-            Object {
-              "data-validators": "isRequired,isAlpha",
-              "label": "Name",
-              "name": "name",
-              "required": false,
-              "select": false,
-              "type": "text",
-              "value": "mufasa",
-            },
-          ],
-        ],
-      }
-    }
-    onToggle={[MockFunction]}
-    onValueChange={[MockFunction]}
-    useNativeRequiredValidator={false}
-  >
-    <TextField
-      data-validators="isRequired,isAlpha"
-      label="Name"
-      name="name"
-      required={false}
-      select={false}
-      type="text"
-      value="mufasa"
-    />
-  </FieldClone>,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "function",
-    "props": Object {
-      "data-validators": "isRequired,isAlpha",
-      "error": false,
-      "helperText": undefined,
-      "label": "Name",
-      "name": "name",
-      "onBlur": [Function],
-      "onChange": [Function],
-      "required": false,
-      "select": false,
-      "type": "text",
-      "value": undefined,
-    },
-    "ref": null,
-    "rendered": null,
-    "type": [Function],
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "function",
-      "props": Object {
-        "data-validators": "isRequired,isAlpha",
-        "error": false,
-        "helperText": undefined,
-        "label": "Name",
-        "name": "name",
-        "onBlur": [Function],
-        "onChange": [Function],
-        "required": false,
-        "select": false,
-        "type": "text",
-        "value": undefined,
-      },
-      "ref": null,
-      "rendered": null,
-      "type": [Function],
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-      },
-    },
-  },
-}
+exports[`<FieldClone>:<TextField> should render 1`] = `
+<TextField
+  data-validators="isRequired,isAlpha"
+  error={false}
+  label="Name"
+  name="name"
+  onBlur={[Function]}
+  onChange={[Function]}
+  required={false}
+  select={false}
+  type="text"
+/>
 `;
