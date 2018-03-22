@@ -312,7 +312,7 @@ export default class Form extends React.Component {
 
       const isInteractiveElement = checkElementInteractivity(child)
       const nestedChildren = _.isArray(child.props.children) && !isInteractiveElement
-        ? _.filter(child.props.children, _.isObject)
+        ? _.filter(child.props.children, v => (_.isObject(v) || _.isString(v)))
         : false
 
       // nested elements
