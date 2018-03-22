@@ -67,7 +67,7 @@ export default class NestedFields extends React.Component {
         wrap="nowrap"
       >
         <Grid item xs className={classes.gridItem}>
-          <Form onSubmit={this.submit} validations={{ tste: [{ code: 'dfd', message: 'dfd' }] }}>
+          <Form onSubmit={this.submit}>
             {'Please fill in the required fields (*)'}
             <TextField
               label="Name"
