@@ -46,7 +46,7 @@ const Root = () => (
             <Button>
               <Link to="/">Nested Fields</Link>
             </Button>
-            <Button>
+            {/* <Button>
               <Link to="/custom-validation-messages">
                 Custom Validation Messages
               </Link>
@@ -67,7 +67,7 @@ const Root = () => (
             </Button>
             <Button>
               <Link to="/readme">Readme</Link>
-            </Button>
+            </Button> */}
           </Toolbar>
         </AppBar>
 
