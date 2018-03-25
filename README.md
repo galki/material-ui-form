@@ -46,7 +46,7 @@ npm install --save material-ui-form
 #### demo
 1. `$ git clone https://github.com/unitedhubs/material-ui-form.git`
 2. `$ cd material-ui-form`
-3. `$ npm install && npm start`
+3. `$ npm install && npm run dev`
 
 ## Props
 
