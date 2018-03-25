@@ -2,6 +2,7 @@ const path = require('path')
 const args = require('yargs').argv
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const WebpackStripLoader = require('strip-loader')
+const webpack = require('webpack')
 
 
 const rules = [
@@ -14,10 +15,11 @@ const rules = [
         '**/__tests__',
       ],
       presets: [
-        '@babel/env',
-        '@babel/react',
-        '@babel/stage-0',
+        'env',
+        'react',
+        'stage-0',
       ],
+      plugins: ['transform-decorators-legacy'],
     },
   },
   {
@@ -67,15 +69,23 @@ if (!args.p) {
     exclude: path.resolve(__dirname, 'node_modules'),
     loader: WebpackStripLoader.loader('console.log'),
   })
+  plugins.push(
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production'),
+      },
+    })
+  )
 }
 
 module.exports = {
-  // devtool,
+  devtool,
   externals,
   output: {
     filename: 'material-ui-form.min.js',
     library: 'MaterialUIForm',
     libraryTarget: 'umd',
+    path: path.resolve(__dirname, 'bundle'),
     umdNamedDefine: true,
   },
   module: {
