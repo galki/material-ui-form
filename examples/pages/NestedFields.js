@@ -21,7 +21,7 @@ import Input, { InputLabel } from 'material-ui/Input'
 import Select from 'material-ui/Select'
 import { MenuItem } from 'material-ui/Menu'
 
-import Form from '../../src/index'
+import MaterialUIForm from '../../src/index'
 import styles from '../styles'
 
 
@@ -72,7 +72,7 @@ export default class NestedFields extends React.Component {
         wrap="nowrap"
       >
         <Grid item xs className={classes.gridItem}>
-          <Form onSubmit={this.submit}>
+          <MaterialUIForm onSubmit={this.submit}>
             {'Please fill in the required fields (*)'}
             <TextField
               label="Name"
@@ -180,7 +180,7 @@ export default class NestedFields extends React.Component {
             </fieldset>
             <Button variant="raised" type="reset">Reset</Button>
             <Button variant="raised" type="submit">Submit</Button>
-          </Form>
+          </MaterialUIForm>
         </Grid>
         <Grid item xs className={classes.gridItem}>
           <pre>
