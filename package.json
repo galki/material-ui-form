@@ -4,12 +4,10 @@
   "description": "State and validation management for Material-UI form components",
   "main": "dist/material-ui-form.min.js",
   "scripts": {
-    "build": "npm run build:bundle && npm run build:dist",
-    "build:bundle": "webpack -p",
-    "build:dist": "rm -Rf ./dist && cross-env NODE_ENV=production babel ./src -d ./dist",
+    "build": "webpack -p",
     "dev": "webpack-dev-server --mode development --entry=./examples/Root --open",
     "lint": "eslint -c eslintrc.json ./src --no-eslintrc",
-    "prepublish": "npm run lint && npm test && npm run build:dist",
+    "prepublish": "rm -Rf ./dist && cross-env NODE_ENV=production babel ./src -d ./dist",
     "test": "node ./tools/windows-safe-jest.js"
   },
   "repository": {
