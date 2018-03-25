@@ -4,10 +4,12 @@
   "description": "State and validation management for Material-UI form components",
   "main": "dist/material-ui-form.min.js",
   "scripts": {
-    "build": "webpack -p && npm run prepublish",
+    "build": "npm run build:bundle && npm run build:dist",
+    "build:bundle": "webpack -p",
+    "build:dist": "rm -Rf ./dist && cross-env NODE_ENV=production babel ./src -d ./dist",
     "dev": "webpack-dev-server --mode development --entry=./examples/Root --open",
     "lint": "eslint -c eslintrc.json ./src --no-eslintrc",
-    "prepublish": "rm -Rf ./dist && cross-env NODE_ENV=production babel ./src -d ./dist",
+    "prepublish": "npm run lint && npm test && npm run build:dist",
     "test": "node ./tools/windows-safe-jest.js"
   },
   "repository": {
@@ -45,6 +47,7 @@
   },
   "dependencies": {
     "material-ui": "^1.0.0-beta.38",
+    "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "validator": "^9.4.1"
@@ -80,7 +83,6 @@
     "less-loader": "^4.1.0",
     "lodash": "^4.17.5",
     "markdown-loader": "^2.0.2",
-    "prop-types": "^15.6.1",
     "react-router-dom": "^4.2.2",
     "shelljs": "^0.8.1",
     "strip-loader": "^0.1.2",
