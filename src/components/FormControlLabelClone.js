@@ -29,10 +29,6 @@ export default class FormControlLabelClone extends React.Component<Props, State>
   constructor(props: Object) {
     super(props)
 
-    if (![Checkbox, Switch].includes(props.control.type)) {
-      throw new Error('invalid FormControlLabel control component')
-    }
-
     let { checked } = props.control.props
     const { value } = props.control.props
 
@@ -45,6 +41,12 @@ export default class FormControlLabelClone extends React.Component<Props, State>
     this.state = {
       checked,
       value,
+    }
+  }
+
+  componentWillReceiveProps(nextProps: Object) {
+    if (![Checkbox, Switch].includes(nextProps.control.type)) {
+      throw new Error('invalid FormControlLabel control component')
     }
   }
 

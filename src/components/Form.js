@@ -123,10 +123,10 @@ export default class Form extends React.Component<Props, State> {
   // eslint-disable-next-line react/sort-comp
   onValuesChange: void
   validation: {
-    messageMap?: Object,
-    messageMapKeyPrefix?: string,
-    requiredValidatorName?: string | boolean,
-    validators?: Object,
+    messageMap: Object,
+    messageMapKeyPrefix: string,
+    requiredValidatorName: string | boolean,
+    validators: Object,
     validate: Function,
   }
 
