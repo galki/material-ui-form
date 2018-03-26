@@ -19,7 +19,7 @@ function getErrorAndHelperText(field: Object): Object {
 
 type Props = {
   field?: Object,
-  formControlElement: Object,
+  formControlComp: Object,
   onValueChange: Function,
   onConstruct: Function,
 };
@@ -42,15 +42,14 @@ export default class FormControlClone extends React.Component<Props, State> {
   constructor(props: Object) {
     super(props)
 
-
-    const { error, required } = props.formControlElement.props
+    const { error, required } = props.formControlComp.props
 
     let name
     let value
     let helperText
     let isError = error
 
-    React.Children.forEach(props.formControlElement.props.children, (child) => {
+    React.Children.forEach(props.formControlComp.props.children, (child) => {
       if (child.type === FormHelperText) {
         helperText = String(child.props.children)
         this.helperText = helperText
@@ -64,7 +63,7 @@ export default class FormControlClone extends React.Component<Props, State> {
       }
     })
 
-    if (props.formControlElement.type !== FormControl
+    if (props.formControlComp.type !== FormControl
       || name === undefined
       || value === undefined
     ) {
@@ -108,7 +107,7 @@ export default class FormControlClone extends React.Component<Props, State> {
   }
 
   render() {
-    const { formControlElement, formControlElement: { props } } = this.props
+    const { formControlComp, formControlComp: { props } } = this.props
 
     let hasHelperText = false
     const children = React.Children.map(props.children, (child) => {
@@ -135,7 +134,7 @@ export default class FormControlClone extends React.Component<Props, State> {
     }
 
     return (
-      React.cloneElement(formControlElement, {
+      React.cloneElement(formControlComp, {
         error: this.state.isError,
         children,
       })

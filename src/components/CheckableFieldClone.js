@@ -29,9 +29,6 @@ export default class CheckableFieldClone extends React.Component<Props, State> {
     if (![Checkbox, Switch].includes(fieldComp.type)) {
       throw new Error('CheckableFieldClone should be a Checkbox or Switch')
     }
-    if (fieldComp.type.name === undefined) {
-      throw new Error('CheckableFieldClone does not support native elements')
-    }
     if (fieldComp.props.name === undefined || fieldComp.props.value === undefined) {
       throw new Error('CheckableFieldClone name and value must be defined')
     }

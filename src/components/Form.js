@@ -110,31 +110,25 @@ export default class Form extends React.Component<Props, State> {
     autoComplete: 'off',
     disableSubmitButtonOnError: true,
     onValuesChange: undefined,
-    validation: {
-      messageMap,
-      messageMapKeyPrefix: '',
-      requiredValidatorName: validationConstants.REQUIRED_VALIDATOR_NAME,
-      validators: defaultValidators,
-      validate,
-    },
+    validation: {},
     validations: {},
   }
 
   // eslint-disable-next-line react/sort-comp
   onValuesChange: void
-  validation: {
-    messageMap: Object,
-    messageMapKeyPrefix: string,
-    requiredValidatorName: string | boolean,
-    validators: Object,
-    validate: Function,
+  validation = {
+    messageMap,
+    messageMapKeyPrefix: '',
+    requiredValidatorName: validationConstants.REQUIRED_VALIDATOR_NAME,
+    validators: defaultValidators,
+    validate,
   }
 
   constructor(props: Object) {
     super(props)
 
     this.onValuesChange = props.onValuesChange
-    this.validation = Object.assign({}, props.validation)
+    this.validation = Object.assign(this.validation, props.validation)
     this.state = {
       disableSubmitButton: false,
       fields: {},
@@ -355,7 +349,7 @@ export default class Form extends React.Component<Props, State> {
               <FormControlClone
                 key={name}
                 field={this.state.fields[name]}
-                formControlElement={child}
+                formControlComp={child}
                 onConstruct={this.onFieldConstruct}
                 onValueChange={this.onFieldValueChange}
               />

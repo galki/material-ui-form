@@ -84,6 +84,7 @@
     "less": "^3.0.1",
     "less-loader": "^4.1.0",
     "markdown-loader": "^2.0.2",
+    "prop-types": "^15.6.1",
     "react-router-dom": "^4.2.2",
     "shelljs": "^0.8.1",
     "strip-loader": "^0.1.2",

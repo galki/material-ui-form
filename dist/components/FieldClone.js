@@ -13,10 +13,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = require('prop-types');
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
@@ -31,14 +27,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-// eslint-disable-line import/no-extraneous-dependencies
-
-
 function getRequiredProp(required, useNativeRequiredValidator) {
   if (!useNativeRequiredValidator) {
     return false;
   }
-  return required;
+  return required || false;
 }
 
 function makeLabel(fieldComp, props) {
@@ -139,7 +132,7 @@ var FieldClone = (_temp = _class = function (_React$Component) {
     var _props2 = _this2.props,
         fieldComp = _props2.fieldComp,
         name = _props2.fieldComp.props.name;
-    var value = event.currentTarget.value;
+    var value = event.target.value;
     // // /* TODO: create function for condition */
 
     if (!fieldComp.props.select) {
@@ -154,7 +147,7 @@ var FieldClone = (_temp = _class = function (_React$Component) {
     var _props3 = _this2.props,
         fieldComp = _props3.fieldComp,
         name = _props3.fieldComp.props.name;
-    var value = event.currentTarget.value;
+    var value = event.target.value;
 
     var helperText = _lodash2.default.get(fieldComp.props, 'helperText');
     _this2.setState({ isError: false, helperText: helperText, value: value });
