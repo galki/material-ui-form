@@ -100,12 +100,12 @@ var FieldClone = (_temp = _class = function (_React$Component) {
     value: function componentWillReceiveProps(nextProps) {
       if (!_lodash2.default.isEmpty(nextProps.field)) {
         var _makeErrorAndHelperTe2 = makeErrorAndHelperText(nextProps),
-            helperText = _makeErrorAndHelperTe2.helperText,
-            isError = _makeErrorAndHelperTe2.isError;
+            _helperText = _makeErrorAndHelperTe2.helperText,
+            _isError = _makeErrorAndHelperTe2.isError;
 
         this.setState({
-          helperText: helperText,
-          isError: isError,
+          helperText: _helperText,
+          isError: _isError,
           value: nextProps.field.value
         });
       }
@@ -130,13 +130,7 @@ var FieldClone = (_temp = _class = function (_React$Component) {
   }]);
 
   return FieldClone;
-}(_react2.default.Component), _class.propTypes = {
-  field: _propTypes2.default.object,
-  fieldComp: _propTypes2.default.object.isRequired,
-  onValueChange: _propTypes2.default.func.isRequired,
-  onConstruct: _propTypes2.default.func.isRequired,
-  useNativeRequiredValidator: _propTypes2.default.bool.isRequired
-}, _class.defaultProps = {
+}(_react2.default.Component), _class.defaultProps = {
   field: {}
 }, _initialiseProps = function _initialiseProps() {
   var _this2 = this;
@@ -145,7 +139,7 @@ var FieldClone = (_temp = _class = function (_React$Component) {
     var _props2 = _this2.props,
         fieldComp = _props2.fieldComp,
         name = _props2.fieldComp.props.name;
-    var value = event.target.value;
+    var value = event.currentTarget.value;
     // // /* TODO: create function for condition */
 
     if (!fieldComp.props.select) {
@@ -160,7 +154,7 @@ var FieldClone = (_temp = _class = function (_React$Component) {
     var _props3 = _this2.props,
         fieldComp = _props3.fieldComp,
         name = _props3.fieldComp.props.name;
-    var value = event.target.value;
+    var value = event.currentTarget.value;
 
     var helperText = _lodash2.default.get(fieldComp.props, 'helperText');
     _this2.setState({ isError: false, helperText: helperText, value: value });

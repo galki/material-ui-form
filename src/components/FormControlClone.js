@@ -1,14 +1,15 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
-import _ from 'lodash' // eslint-disable-line import/no-extraneous-dependencies
+import _ from 'lodash'
 
 import { FormControl, FormHelperText, FormLabel } from 'material-ui/Form'
 import { InputLabel } from 'material-ui/Input'
 
 
-function getErrorAndHelperText(field) {
-  let helperText
-  let isError = false
+function getErrorAndHelperText(field: Object): Object {
+  let helperText: ?string
+  let isError: boolean = false
   if (!_.isEmpty(field) && field.validations.length > 0) {
     helperText = field.validations[0].message
     isError = true
@@ -16,20 +17,31 @@ function getErrorAndHelperText(field) {
   return { helperText, isError }
 }
 
-export default class FormControlClone extends React.Component {
-  static propTypes = {
-    field: PropTypes.object,
-    formControlElement: PropTypes.object.isRequired,
-    onValueChange: PropTypes.func.isRequired,
-    onConstruct: PropTypes.func.isRequired,
-  }
+type Props = {
+  field?: Object,
+  formControlElement: Object,
+  onValueChange: Function,
+  onConstruct: Function,
+};
 
+type State = {
+  helperText: ?string,
+  isError: boolean,
+  value: mixed,
+};
+
+export default class FormControlClone extends React.Component<Props, State> {
   static defaultProps = {
     field: {},
   }
 
-  constructor(props) {
+  // eslint-disable-next-line react/sort-comp
+  helperText: string
+  name: string
+
+  constructor(props: Object) {
     super(props)
+
 
     const { error, required } = props.formControlElement.props
 
@@ -78,7 +90,7 @@ export default class FormControlClone extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Object) {
     if (!_.isEmpty(nextProps.field)) {
       const { helperText, isError } = getErrorAndHelperText(nextProps.field)
       this.setState({
@@ -89,7 +101,7 @@ export default class FormControlClone extends React.Component {
     }
   }
 
-  onChange = (event) => {
+  onChange = (event: SyntheticInputEvent<Element>) => {
     const { value } = event.target
     this.setState({ isError: false, helperText: this.helperText, value })
     this.props.onValueChange(this.name, value)
