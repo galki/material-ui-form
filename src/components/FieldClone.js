@@ -33,7 +33,7 @@ function makeErrorAndHelperText(props: Object): Object {
 }
 
 type Props = {
-  field?: Object,
+  field: Object,
   fieldComp: Object,
   onConstruct: Function,
   onValueChange: Function,
@@ -50,6 +50,18 @@ type State = {
 export default class FieldClone extends React.Component<Props, State> {
   static defaultProps = {
     field: {},
+  }
+
+  static getDerivedStateFromProps(nextProps: Object) {
+    if (!_.isEmpty(nextProps.field)) {
+      const { helperText, isError } = makeErrorAndHelperText(nextProps)
+      return {
+        helperText,
+        isError,
+        value: nextProps.field.value,
+      }
+    }
+    return null
   }
 
   constructor(props: Object) {
@@ -74,18 +86,6 @@ export default class FieldClone extends React.Component<Props, State> {
 
     if (props.field.value === undefined) {
       this.props.onConstruct(fieldComp.props)
-    }
-  }
-
-  // eslint-disable-next-line
-  UNSAFE_componentWillReceiveProps(nextProps: Object) {
-    if (!_.isEmpty(nextProps.field)) {
-      const { helperText, isError } = makeErrorAndHelperText(nextProps)
-      this.setState({
-        helperText,
-        isError,
-        value: nextProps.field.value,
-      })
     }
   }
 

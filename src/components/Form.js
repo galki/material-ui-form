@@ -115,6 +115,22 @@ export default class Form extends React.Component<Props, State> {
     validations: {},
   }
 
+  static getDerivedStateFromProps(nextProps: Object, nextState: Object) {
+    const { fields } = nextState
+    if (!_.isEmpty(fields)) {
+      _.each(nextProps.validations, (validations, name) => {
+        if (_.has(fields, name)) {
+          fields[name].validations = validations
+        } else {
+          // eslint-disable-next-line no-console
+          console.warn(`validations field "${name}" does not exist`)
+        }
+      })
+      return fields
+    }
+    return null
+  }
+
   // eslint-disable-next-line react/sort-comp
   onValuesChange: void
   validation = {
@@ -135,20 +151,6 @@ export default class Form extends React.Component<Props, State> {
       disableSubmitButton: false,
       fields: {},
     }
-  }
-
-  // eslint-disable-next-line
-  UNSAFE_componentWillReceiveProps(nextProps: Object) {
-    const { fields } = this.state
-    _.each(nextProps.validations, (validations, name) => {
-      if (_.has(fields, name)) {
-        fields[name].validations = validations
-      } else {
-        // eslint-disable-next-line no-console
-        console.warn(`validations field "${name}" does not exist`)
-      }
-    })
-    this.setState({ fields })
   }
 
   onFieldConstruct = (fieldProps: Object) => {
