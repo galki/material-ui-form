@@ -539,14 +539,12 @@ class MyForm extends React.Component {
               label="Label"
               name={`rows[${i}][label]`}
               value=""
-              style={inputStyle}
               required
             />
             <TextField
               label="Value"
               name={`rows[${i}][value]`}
               value=""
-              style={inputStyle}
             />
             { this.state.rows.length > 1 &&
               <Button
