@@ -17,7 +17,7 @@ import CustomValidationMessages from './pages/CustomValidationMessages'
 import CustomValidators from './pages/CustomValidators'
 import CustomValidateFunction from './pages/CustomValidateFunction'
 import Steppers from './pages/Steppers'
-import DynamicFields from './pages/DynamicFields'
+import DynamicArrayFields from './pages/DynamicArrayFields'
 import MiscProps from './pages/MiscProps'
 import ReadmeHTML from '../README.md'
 
@@ -64,7 +64,7 @@ const Root = () => (
               <Link to="/steppers">Steppers</Link>
             </Button>
             <Button>
-              <Link to="/dynamic-fields">Dynamic Fields</Link>
+              <Link to="/dynamic-array-fields">Dynamic Array Fields</Link>
             </Button>
             <Button>
               <Link to="/misc-props">Misc Props</Link>
@@ -86,7 +86,7 @@ const Root = () => (
           component={CustomValidateFunction}
         />
         <Route path="/steppers" component={Steppers} />
-        <Route path="/dynamic-fields" component={DynamicFields} />
+        <Route path="/dynamic-array-fields" component={DynamicArrayFields} />
         <Route path="/misc-props" component={MiscProps} />
         <Route path="/readme" component={Readme} />
       </div>

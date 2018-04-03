@@ -1,23 +1,16 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types' // eslint-disable-line import/no-extraneous-dependencies
+// import formDataToObject from 'form-data-to-object'
 
 import Grid from 'material-ui/Grid'
 import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
 import { withStyles } from 'material-ui/styles'
 import Divider from 'material-ui/Divider'
-import IconButton from 'material-ui/IconButton'
 
 import Form from '../../src/index'
 import styles from '../styles'
 
-
-function getSteps() {
-  return [
-    'Step 1',
-    'Step 2',
-  ]
-}
 
 const inputStyle = {
   marginRight: '20px',
@@ -25,7 +18,7 @@ const inputStyle = {
 }
 
 @withStyles(styles)
-export default class DynamicFields extends Component {
+export default class DynamicArrayFields extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
   }
@@ -36,27 +29,17 @@ export default class DynamicFields extends Component {
   }
 
   addRow = () => {
-    const rows = _.clone(this.state.rows)
-    console.log(rows)
+    const { rows } = this.state
     rows.push({ label: '', value: '' })
     this.setState({ rows })
   }
 
   removeRow = (index) => {
-    console.log('remove:', index)
-    const rows = _.clone(this.state.rows)
+    const { rows } = this.state
     if (rows.length > 1) {
-      delete rows[index]
-      // console.log(_.compact(rows))
-      this.setState({ rows: _.compact(rows) })
+      rows.splice(index, 1)
+      this.setState({ rows })
     }
-  }
-
-  updateRows = (values) => {
-    _.defer(() => {
-      // this.setState({ rows: formDataToObject.toObj(values).rows })
-      console.log('update:', this.state.rows)
-    })
   }
 
   submit = (values, pristineValues) => {
@@ -75,28 +58,29 @@ export default class DynamicFields extends Component {
         wrap="nowrap"
       >
         <Grid item xs className={classes.gridItem}>
-          <Form onSubmit={this.submit} onValuesChange={this.updateRows}>
+          <Form onSubmit={this.submit}>
             {this.state.rows.map((row, i) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <Fragment key={row + i}>
+              <Fragment key={_.uniqueId()}>
                 <TextField
                   label="Label"
-                  helperText="what are you encrypting?"
-                  data-validators="isRequired"
                   name={`rows[${i}][label]`}
-                  value={row.label}
+                  value=""
                   style={inputStyle}
+                  required
                 />
                 <TextField
                   label="Value"
-                  helperText="the data you want to encrypt"
-                  data-validators="isRequired"
                   name={`rows[${i}][value]`}
-                  value={row.value}
+                  value=""
                   style={inputStyle}
                 />
-                { i > 0 &&
-                  <Button onClick={() => this.removeRow(i)}>Remove Row</Button>
+                { this.state.rows.length > 1 &&
+                  <Button
+                    onClick={() => this.removeRow(i)}
+                    deletefieldrow={`rows[${i}]`}
+                  >
+                    Remove Row
+                  </Button>
                 }
               </Fragment>
             ))}
