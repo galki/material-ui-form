@@ -83,7 +83,7 @@ Prop                          | Description               | Default
 ↳ [***messageMap***](#custom-validation-messages) _[object]_ | A key-value list where the key is the validator name and the value is the error message. Is exposed as a _material-ui-form_ export parameter | _object_
 ↳ [***messageKeyPrefix***](#custom-validation-messages) _[string]_ | Optional prefix to apply to all messageMap keys. If specified, field validator names will automatically be appended the prefix | ""
 ↳ [***requiredValidatorName***](#custom-validation-logic) _[boolean, string]_ | Specifies the validator name and matching messegeMap key for required fields. To disable and rely on the native _required_ field prop, set to `false` | "isRequired"
-↳ [***validate***](#custom-validators) _[func]_ | Overrides the internal validate method. Receives the following parameters: _@fieldValue_, _@fieldValidators_, and _@...rest_ (where _@...rest_ is the **validation** prop object) | _func_
+↳ [***validate***](#custom-validation-logic) _[func]_ | Overrides the internal validate method. Receives the following parameters: _@fieldValue_, _@fieldValidators_, and _@...rest_ (where _@...rest_ is the **validation** prop object) | _func_
 ↳ [***validators***](#custom-validators) _[object]_ | Defaults to an extended validator.js object. Is exposed as a _material-ui-form_ export parameter | _object_
 ↳ ***validateInputOnBlur*** _[boolean]_ | Makes text input validations happen on blur instead of on change | false
 [***validations***](#server-validations) _[object]_ | Validations to pass to the form (i.e. from the server). Should be an object with keys representing field _name_ props and values as arrays of field error messages. The first error message will be displayed per field | 
