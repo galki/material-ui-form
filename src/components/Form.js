@@ -3,15 +3,13 @@
 import React from 'react'
 import _ from 'lodash'
 
-import {
-  FormControl,
-  FormControlLabel,
-  FormHelperText,
-  FormLabel,
-} from 'material-ui/Form'
-import { InputLabel } from 'material-ui/Input'
-import Checkbox from 'material-ui/Checkbox'
-import Switch from 'material-ui/Switch'
+import FormControl from '@material-ui/core/FormControl'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import FormHelperText from '@material-ui/core/FormHelperText'
+import FormLabel from '@material-ui/core/FormLabel'
+import { InputLabel } from '@material-ui/core/Input'
+import Checkbox from '@material-ui/core/Checkbox'
+import Switch from '@material-ui/core/Switch'
 
 import FormControlClone from './FormControlClone'
 import FormControlLabelClone from './FormControlLabelClone'
@@ -97,7 +95,7 @@ function isValidForm(fields: Object): boolean {
 }
 
 type Props = {
-  activeStep?: number,
+  activeStep: ?number,
   autoComplete?: string,
   children: Array<mixed>,
   disableSubmitButtonOnError?: boolean,
@@ -130,6 +128,21 @@ export default class Form extends React.Component<Props, State> {
     validations: {},
   }
 
+
+  // eslint-disable-next-line react/sort-comp
+  onValuesChange: void
+
+  constructor(props: Object) {
+    super(props)
+
+    this.onValuesChange = props.onValuesChange
+    this.validation = Object.assign(this.validation, props.validation)
+    this.state = {
+      disableSubmitButton: false,
+      fields: {},
+    }
+  }
+
   static getDerivedStateFromProps(nextProps: Object, prevState: Object) {
     const { fields } = prevState
 
@@ -148,8 +161,6 @@ export default class Form extends React.Component<Props, State> {
     return null
   }
 
-  // eslint-disable-next-line react/sort-comp
-  onValuesChange: void
   validation = {
     messageMap,
     messageMapKeyPrefix: '',
@@ -157,17 +168,6 @@ export default class Form extends React.Component<Props, State> {
     validators: defaultValidators,
     validate,
     validateInputOnBlur: false,
-  }
-
-  constructor(props: Object) {
-    super(props)
-
-    this.onValuesChange = props.onValuesChange
-    this.validation = Object.assign(this.validation, props.validation)
-    this.state = {
-      disableSubmitButton: false,
-      fields: {},
-    }
   }
 
   onFieldConstruct = (fieldProps: Object) => {

@@ -2,16 +2,14 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import toJson from 'enzyme-to-json'
 
-import {
-  FormLabel,
-  FormControl,
-  FormControlLabel,
-  FormHelperText,
-} from 'material-ui/Form'
-import Radio, { RadioGroup } from 'material-ui/Radio'
-import { InputLabel } from 'material-ui/Input'
-import Select from 'material-ui/Select'
-import { MenuItem } from 'material-ui/Menu'
+import FormControl from '@material-ui/core/FormControl'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import FormHelperText from '@material-ui/core/FormHelperText'
+import FormLabel from '@material-ui/core/FormLabel'
+import Radio, { RadioGroup } from '@material-ui/core/Radio'
+import { InputLabel } from '@material-ui/core/Input'
+import Select from '@material-ui/core/Select'
+import { MenuItem } from '@material-ui/core/Menu'
 
 import FormControlClone from '../FormControlClone'
 

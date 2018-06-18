@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import toJson from 'enzyme-to-json'
 
-import TextField from 'material-ui/TextField'
+import TextField from '@material-ui/core/TextField'
 
 import FieldClone from '../FieldClone'
 

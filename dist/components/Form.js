@@ -19,15 +19,29 @@ var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _Form = require('material-ui/Form');
+var _FormControl = require('@material-ui/core/FormControl');
 
-var _Input = require('material-ui/Input');
+var _FormControl2 = _interopRequireDefault(_FormControl);
 
-var _Checkbox = require('material-ui/Checkbox');
+var _FormControlLabel = require('@material-ui/core/FormControlLabel');
+
+var _FormControlLabel2 = _interopRequireDefault(_FormControlLabel);
+
+var _FormHelperText = require('@material-ui/core/FormHelperText');
+
+var _FormHelperText2 = _interopRequireDefault(_FormHelperText);
+
+var _FormLabel = require('@material-ui/core/FormLabel');
+
+var _FormLabel2 = _interopRequireDefault(_FormLabel);
+
+var _Input = require('@material-ui/core/Input');
+
+var _Checkbox = require('@material-ui/core/Checkbox');
 
 var _Checkbox2 = _interopRequireDefault(_Checkbox);
 
-var _Switch = require('material-ui/Switch');
+var _Switch = require('@material-ui/core/Switch');
 
 var _Switch2 = _interopRequireDefault(_Switch);
 
@@ -68,7 +82,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function verifyFieldElement(component) {
-  var whitelist = [_Form.FormControlLabel];
+  var whitelist = [_FormControlLabel2.default];
 
   return whitelist.includes(component.type) || _lodash2.default.has(component, 'props.name') && _lodash2.default.has(component, 'props.value');
 }
@@ -396,9 +410,9 @@ var Form = (_temp = _class = function (_React$Component) {
         // nested elements
         if (nestedChildren !== false) {
           // FormControl element with field/group name-value props
-          if (child.type === _Form.FormControl) {
+          if (child.type === _FormControl2.default) {
             var fieldElement = nestedChildren.find(function (el) {
-              return ![_Form.FormLabel, _Input.InputLabel, _Form.FormHelperText].includes(el.type) && el.props.name !== undefined && el.props.value !== undefined;
+              return ![_FormLabel2.default, _Input.InputLabel, _FormHelperText2.default].includes(el.type) && el.props.name !== undefined && el.props.value !== undefined;
             });
             if (fieldElement !== undefined) {
               var _name = fieldElement.props.name;
@@ -435,7 +449,7 @@ var Form = (_temp = _class = function (_React$Component) {
           return child;
         }
         // clone control label
-        if (child.type === _Form.FormControlLabel) {
+        if (child.type === _FormControlLabel2.default) {
           var _name2 = child.props.control.props.name;
 
           return _react2.default.createElement(_FormControlLabelClone2.default, {

@@ -1,22 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types' // eslint-disable-line import/no-extraneous-dependencies
 
-import Grid from 'material-ui/Grid'
-import Button from 'material-ui/Button'
-import TextField from 'material-ui/TextField'
-import { withStyles } from 'material-ui/styles'
-import Checkbox from 'material-ui/Checkbox'
-import {
-  FormLabel,
-  FormControl,
-  FormControlLabel,
-  FormHelperText,
-} from 'material-ui/Form'
-import Radio, { RadioGroup } from 'material-ui/Radio'
+import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
+import { withStyles } from '@material-ui/core/styles'
+import Checkbox from '@material-ui/core/Checkbox'
+import FormControl from '@material-ui/core/FormControl'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import FormHelperText from '@material-ui/core/FormHelperText'
+import FormLabel from '@material-ui/core/FormLabel'
+import Radio, { RadioGroup } from '@material-ui/core/Radio'
 
-import { InputLabel } from 'material-ui/Input'
-import Select from 'material-ui/Select'
-import { MenuItem } from 'material-ui/Menu'
+import { InputLabel } from '@material-ui/core/Input'
+import Select from '@material-ui/core/Select'
+import { MenuItem } from '@material-ui/core/Menu'
 
 import MaterialUIForm from '../../src/index'
 import styles from '../styles'
