@@ -95,13 +95,15 @@ function isValidForm(fields: Object): boolean {
 }
 
 type Props = {
-  activeStep: ?number,
+  activeStep?: number,
   autoComplete?: string,
   children: Array<mixed>,
+  className?: Object,
   disableSubmitButtonOnError?: boolean,
   onFieldValidation?: Function,
   onSubmit: Function,
   onValuesChange?: void | Function,
+  style?: Object,
   validation?: {
     messageMap?: Object,
     messageMapKeyPrefix?: string,
@@ -120,14 +122,16 @@ type State = {
 
 export default class Form extends React.Component<Props, State> {
   static defaultProps = {
+    activeStep: 0,
     autoComplete: 'off',
+    className: undefined,
     disableSubmitButtonOnError: true,
     onFieldValidation: undefined,
     onValuesChange: undefined,
+    style: {},
     validation: {},
     validations: {},
   }
-
 
   // eslint-disable-next-line react/sort-comp
   onValuesChange: void
@@ -489,9 +493,11 @@ export default class Form extends React.Component<Props, State> {
   render() {
     return (
       <form
+        autoComplete={this.props.autoComplete}
+        className={this.props.className}
         onReset={this.reset}
         onSubmit={this.submit}
-        autoComplete={this.props.autoComplete}
+        style={this.props.style}
       >
         { this.cloneChildrenRecursively(this.props.children) }
       </form>

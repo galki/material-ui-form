@@ -68,7 +68,11 @@ export default class NestedFields extends React.Component {
         wrap="nowrap"
       >
         <Grid item xs className={classes.gridItem}>
-          <MaterialUIForm onSubmit={this.submit}>
+          <MaterialUIForm
+            className={classes.form}
+            style={{ backgroundColor: '#fafafa' }}
+            onSubmit={this.submit}
+          >
             {'Please fill in the required fields (*)'}
             <TextField
               label="Name"
