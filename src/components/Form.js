@@ -420,7 +420,6 @@ export default class Form extends React.Component<Props, State> {
               />
             )
           }
-          return null
         }
         // non-FormControl element
         return (

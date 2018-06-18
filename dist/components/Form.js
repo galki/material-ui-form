@@ -405,7 +405,6 @@ var Form = (_temp = _class = function (_React$Component) {
                 onValueChange: _this2.onFieldValueChange
               });
             }
-            return null;
           }
           // non-FormControl element
           return _react2.default.cloneElement(child, {
