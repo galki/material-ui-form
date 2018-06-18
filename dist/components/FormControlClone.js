@@ -29,7 +29,9 @@ var _FormLabel = require('@material-ui/core/FormLabel');
 
 var _FormLabel2 = _interopRequireDefault(_FormLabel);
 
-var _Input = require('@material-ui/core/Input');
+var _InputLabel = require('@material-ui/core/InputLabel');
+
+var _InputLabel2 = _interopRequireDefault(_InputLabel);
 
 var _propNames = require('../propNames');
 
@@ -80,7 +82,7 @@ var FormControlClone = (_temp = _class = function (_React$Component) {
       if (child.type === _FormHelperText2.default) {
         helperText = String(child.props.children);
         _this.helperText = helperText;
-      } else if (child.type !== _FormLabel2.default && child.type !== _Input.InputLabel && child.props.name !== undefined && child.props.value !== undefined) {
+      } else if (child.type !== _FormLabel2.default && child.type !== _InputLabel2.default && child.props.name !== undefined && child.props.value !== undefined) {
         name = child.props.name; // eslint-disable-line prefer-destructuring
         value = child.props.value; // eslint-disable-line prefer-destructuring
       }
@@ -146,7 +148,7 @@ var FormControlClone = (_temp = _class = function (_React$Component) {
       var hasHelperText = false;
       var children = _react2.default.Children.map(props.children, function (child) {
         // label
-        if (child.type === _FormLabel2.default || child.type === _Input.InputLabel) {
+        if (child.type === _FormLabel2.default || child.type === _InputLabel2.default) {
           return child;
         }
         // helper text

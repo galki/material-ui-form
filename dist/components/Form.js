@@ -35,7 +35,9 @@ var _FormLabel = require('@material-ui/core/FormLabel');
 
 var _FormLabel2 = _interopRequireDefault(_FormLabel);
 
-var _Input = require('@material-ui/core/Input');
+var _InputLabel = require('@material-ui/core/InputLabel');
+
+var _InputLabel2 = _interopRequireDefault(_InputLabel);
 
 var _Checkbox = require('@material-ui/core/Checkbox');
 
@@ -389,24 +391,21 @@ var Form = (_temp = _class = function (_React$Component) {
         if (nestedChildren !== false) {
           // FormControl element with field/group name-value props
           if (child.type === _FormControl2.default) {
-            // const fieldElement = nestedChildren.find(el =>
-            //   ![FormLabel, InputLabel, FormHelperText].includes(el.type)
-            //   && el.props.name !== undefined
-            //   && el.props.value !== undefined)
-            // console.log('=========', fieldElement)
-            // if (fieldElement !== undefined) {
-            //   const { name } = fieldElement.props
-            //   return (
-            //     <FormControlClone
-            //       key={name}
-            //       field={this.state.fields[name]}
-            //       formControlComp={child}
-            //       onConstruct={this.onFieldConstruct}
-            //       onValueChange={this.onFieldValueChange}
-            //     />
-            //   )
-            // }
-            return child;
+            var fieldElement = nestedChildren.find(function (el) {
+              return ![_FormLabel2.default, _InputLabel2.default, _FormHelperText2.default].includes(el.type) && el.props.name !== undefined && el.props.value !== undefined;
+            });
+            if (fieldElement !== undefined) {
+              var _name = fieldElement.props.name;
+
+              return _react2.default.createElement(_FormControlClone2.default, {
+                key: _name,
+                field: _this2.state.fields[_name],
+                formControlComp: child,
+                onConstruct: _this2.onFieldConstruct,
+                onValueChange: _this2.onFieldValueChange
+              });
+            }
+            return null;
           }
           // non-FormControl element
           return _react2.default.cloneElement(child, {
@@ -432,11 +431,11 @@ var Form = (_temp = _class = function (_React$Component) {
         }
         // clone control label
         if (child.type === _FormControlLabel2.default) {
-          var _name = child.props.control.props.name;
+          var _name2 = child.props.control.props.name;
 
           return _react2.default.createElement(_FormControlLabelClone2.default, {
-            key: _name,
-            field: _this2.state.fields[_name],
+            key: _name2,
+            field: _this2.state.fields[_name2],
             control: child.props.control,
             label: child.props.label,
             onConstruct: _this2.onFieldConstruct,
@@ -475,9 +474,11 @@ var Form = (_temp = _class = function (_React$Component) {
       return _react2.default.createElement(
         'form',
         {
+          autoComplete: this.props.autoComplete,
+          className: this.props.className,
           onReset: this.reset,
           onSubmit: this.submit,
-          autoComplete: this.props.autoComplete
+          style: this.props.style
         },
         this.cloneChildrenRecursively(this.props.children)
       );
@@ -506,10 +507,13 @@ var Form = (_temp = _class = function (_React$Component) {
 
   return Form;
 }(_react2.default.Component), _class.defaultProps = {
+  activeStep: 0,
   autoComplete: 'off',
+  className: undefined,
   disableSubmitButtonOnError: true,
   onFieldValidation: undefined,
   onValuesChange: undefined,
+  style: {},
   validation: {},
   validations: {} }, _temp);
 exports.default = Form;
