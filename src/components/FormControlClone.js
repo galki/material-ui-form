@@ -6,7 +6,7 @@ import _ from 'lodash'
 import FormControl from '@material-ui/core/FormControl'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import FormLabel from '@material-ui/core/FormLabel'
-import { InputLabel } from '@material-ui/core/Input'
+import InputLabel from '@material-ui/core/InputLabel'
 
 import propNames from '../propNames'
 

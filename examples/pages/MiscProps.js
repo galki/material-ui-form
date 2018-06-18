@@ -7,7 +7,6 @@ import Divider from '@material-ui/core/Divider'
 import TextField from '@material-ui/core/TextField'
 import { withStyles } from '@material-ui/core/styles'
 
-
 import Form from '../../src/index'
 import styles from '../styles'
 

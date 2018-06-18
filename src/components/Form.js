@@ -7,7 +7,7 @@ import FormControl from '@material-ui/core/FormControl'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import FormLabel from '@material-ui/core/FormLabel'
-import { InputLabel } from '@material-ui/core/Input'
+import InputLabel from '@material-ui/core/InputLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 import Switch from '@material-ui/core/Switch'
 
@@ -416,6 +416,7 @@ export default class Form extends React.Component<Props, State> {
               />
             )
           }
+          return null
         }
         // non-FormControl element
         return (

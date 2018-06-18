@@ -3,7 +3,7 @@ import PropTypes from 'prop-types' // eslint-disable-line import/no-extraneous-d
 
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
-import { MenuItem } from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
 import TextField from '@material-ui/core/TextField'
 import Stepper, { Step, StepLabel } from '@material-ui/core/Stepper'
 import { withStyles } from '@material-ui/core/styles'

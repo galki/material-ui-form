@@ -152,31 +152,6 @@ function isValidForm(fields) {
 var Form = (_temp = _class = function (_React$Component) {
   _inherits(Form, _React$Component);
 
-  _createClass(Form, null, [{
-    key: 'getDerivedStateFromProps',
-    value: function getDerivedStateFromProps(nextProps, prevState) {
-      var fields = prevState.fields;
-
-
-      if (!_lodash2.default.isEmpty(fields)) {
-        // add validations to fields
-        _lodash2.default.each(nextProps.validations, function (validations, name) {
-          if (_lodash2.default.has(fields, name)) {
-            fields[name].validations = validations;
-          } else {
-            // eslint-disable-next-line no-console
-            console.warn('validations field "' + name + '" does not exist');
-          }
-        });
-        return { fields: fields };
-      }
-      return null;
-    }
-
-    // eslint-disable-next-line react/sort-comp
-
-  }]);
-
   function Form(props) {
     _classCallCheck(this, Form);
 
@@ -375,6 +350,9 @@ var Form = (_temp = _class = function (_React$Component) {
     return _this;
   }
 
+  // eslint-disable-next-line react/sort-comp
+
+
   _createClass(Form, [{
     key: 'enableSubmitButton',
     value: function enableSubmitButton() {
@@ -411,20 +389,24 @@ var Form = (_temp = _class = function (_React$Component) {
         if (nestedChildren !== false) {
           // FormControl element with field/group name-value props
           if (child.type === _FormControl2.default) {
-            var fieldElement = nestedChildren.find(function (el) {
-              return ![_FormLabel2.default, _Input.InputLabel, _FormHelperText2.default].includes(el.type) && el.props.name !== undefined && el.props.value !== undefined;
-            });
-            if (fieldElement !== undefined) {
-              var _name = fieldElement.props.name;
-
-              return _react2.default.createElement(_FormControlClone2.default, {
-                key: _name,
-                field: _this2.state.fields[_name],
-                formControlComp: child,
-                onConstruct: _this2.onFieldConstruct,
-                onValueChange: _this2.onFieldValueChange
-              });
-            }
+            // const fieldElement = nestedChildren.find(el =>
+            //   ![FormLabel, InputLabel, FormHelperText].includes(el.type)
+            //   && el.props.name !== undefined
+            //   && el.props.value !== undefined)
+            // console.log('=========', fieldElement)
+            // if (fieldElement !== undefined) {
+            //   const { name } = fieldElement.props
+            //   return (
+            //     <FormControlClone
+            //       key={name}
+            //       field={this.state.fields[name]}
+            //       formControlComp={child}
+            //       onConstruct={this.onFieldConstruct}
+            //       onValueChange={this.onFieldValueChange}
+            //     />
+            //   )
+            // }
+            return child;
           }
           // non-FormControl element
           return _react2.default.cloneElement(child, {
@@ -450,11 +432,11 @@ var Form = (_temp = _class = function (_React$Component) {
         }
         // clone control label
         if (child.type === _FormControlLabel2.default) {
-          var _name2 = child.props.control.props.name;
+          var _name = child.props.control.props.name;
 
           return _react2.default.createElement(_FormControlLabelClone2.default, {
-            key: _name2,
-            field: _this2.state.fields[_name2],
+            key: _name,
+            field: _this2.state.fields[_name],
             control: child.props.control,
             label: child.props.label,
             onConstruct: _this2.onFieldConstruct,
@@ -500,6 +482,26 @@ var Form = (_temp = _class = function (_React$Component) {
         this.cloneChildrenRecursively(this.props.children)
       );
     }
+  }], [{
+    key: 'getDerivedStateFromProps',
+    value: function getDerivedStateFromProps(nextProps, prevState) {
+      var fields = prevState.fields;
+
+
+      if (!_lodash2.default.isEmpty(fields)) {
+        // add validations to fields
+        _lodash2.default.each(nextProps.validations, function (validations, name) {
+          if (_lodash2.default.has(fields, name)) {
+            fields[name].validations = validations;
+          } else {
+            // eslint-disable-next-line no-console
+            console.warn('validations field "' + name + '" does not exist');
+          }
+        });
+        return { fields: fields };
+      }
+      return null;
+    }
   }]);
 
   return Form;
@@ -509,6 +511,5 @@ var Form = (_temp = _class = function (_React$Component) {
   onFieldValidation: undefined,
   onValuesChange: undefined,
   validation: {},
-  validations: {}
-}, _temp);
+  validations: {} }, _temp);
 exports.default = Form;
