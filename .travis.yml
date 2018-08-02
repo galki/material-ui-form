@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "stable"
+install:
+  - npm install -g codecov
+  - npm install
+after_success:
+  - codecov
+notifications:
+  email: false
