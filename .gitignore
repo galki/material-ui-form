@@ -1,0 +1,9 @@
+*.log
+*.sublime-project
+*.sublime-workspace
+*~
+.DS_Store
+.vscode
+coverage
+logs
+node_modules
