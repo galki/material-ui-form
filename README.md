@@ -1,3 +1,8 @@
+## Now looking for maintainers!
+
+If interested please communicate so in [this issue](https://github.com/unitedhubs/material-ui-form/issues/60).
+
+
 ### material-ui-form
 
 [![npm](https://img.shields.io/npm/v/material-ui-form.svg)](https://www.npmjs.com/package/material-ui-form)
@@ -655,7 +660,9 @@ class MyForm extends React.Component {
 
 ## Contributing
 
-This is a new project and contributions are welcome so feel free to [open an issue](https://github.com/unitedhubs/material-ui-form/issues) or fork and create a pull request. Collaborators are also welcome - please send an email to info@unitedhubs.com.
+This is a new project and contributions are welcome so feel free to [open an issue](https://github.com/unitedhubs/material-ui-form/issues) or fork and create a pull request.
+
+__Now looking for maintainers!__ If interested please communicate so in [this issue](https://github.com/unitedhubs/material-ui-form/issues/60).
 
 ## License
 
