@@ -113,6 +113,10 @@ type Props = {
     validateInputOnBlur?: boolean,
   },
   validations: Object,
+  id?: Object,
+  method?: Object,
+  action?: Object,
+  name?: Object,
 };
 
 type State = {
@@ -131,6 +135,10 @@ export default class Form extends React.Component<Props, State> {
     style: {},
     validation: {},
     validations: {},
+    id: undefined,
+    method: undefined,
+    action: undefined,
+    name: undefined,
   }
 
   // eslint-disable-next-line react/sort-comp
@@ -497,6 +505,10 @@ export default class Form extends React.Component<Props, State> {
         onReset={this.reset}
         onSubmit={this.submit}
         style={this.props.style}
+        id={this.props.id}
+        method={this.props.method}
+        action={this.props.action}
+        name={this.props.name}
       >
         { this.cloneChildrenRecursively(this.props.children) }
       </form>
