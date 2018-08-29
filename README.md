@@ -84,7 +84,7 @@ Prop                          | Description               | Default
 [***onFieldValidation***](#stepper) _[func]_ | Returns _@field_ and _@errorSteps_ (if `activeStep` prop is provided) on field validation |
 [***onSubmit***](#nested-fields) _[func]_ | Returns _@values_ and _@pristineValues_ on form submission |
 [***onValuesChange***](#getting-form-values-on-field-update) _[func]_ | Returns _@values_ and _@pristineValues_ on field value change |
-***validation*** _[object]_   | Object specifing validation config options (prefixed below with ↳) |
+***validation*** _[object]_   | Object specifying validation config options (prefixed below with ↳) |
 ↳ [***messageMap***](#custom-validation-messages) _[object]_ | A key-value list where the key is the validator name and the value is the error message. Is exposed as a _material-ui-form_ export parameter | _object_
 ↳ [***messageKeyPrefix***](#custom-validation-messages) _[string]_ | Optional prefix to apply to all messageMap keys. If specified, field validator names will automatically be appended the prefix | ""
 ↳ [***requiredValidatorName***](#custom-validation-logic) _[boolean, string]_ | Specifies the validator name and matching messegeMap key for required fields. To disable and rely on the native _required_ field prop, set to `false` | "isRequired"
