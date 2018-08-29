@@ -1,5 +1,8 @@
 [ignore]
-.*/node_modules/webpack-cli/.*
+./bundle/.*
+./dist/.*
+./node_modules/.*
+.*/__tests__/.*
 
 [include]
 
