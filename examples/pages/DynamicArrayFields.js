@@ -57,7 +57,7 @@ export default class DynamicArrayFields extends Component {
         wrap="nowrap"
       >
         <Grid item xs className={classes.gridItem}>
-          <Form onSubmit={this.submit}>
+          <Form onSubmit={this.submit} style={{ minWidth: '680px' }}>
             {this.state.rows.map((row, i) => (
               <Fragment key={row._id}>
                 <TextField
