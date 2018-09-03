@@ -1,7 +1,3 @@
-## Now looking for maintainers!
-
-If interested please communicate so in [this issue](https://github.com/unitedhubs/material-ui-form/issues/60).
-
 
 ### material-ui-form
 
