@@ -27,7 +27,9 @@
 6. [License](#license)
 
 ---
+
 __Now looking for maintainers!__ If interested please communicate so in [this issue](https://github.com/unitedhubs/material-ui-form/issues/60).
+
 ---
 
 ## About
