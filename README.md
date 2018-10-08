@@ -1,3 +1,8 @@
+---
+
+__IMPORTANT!__ _Development is put on hold_. If you would like to take over please communicate so in [this issue](https://github.com/unitedhubs/material-ui-form/issues/60).
+
+---
 
 ### material-ui-form
 
@@ -25,12 +30,6 @@
     - [Custom component handler](#custom-components-with-custom-handlers)
 5. [Contributing](#contributing)
 6. [License](#license)
-
----
-
-__Now looking for maintainers!__ If interested please communicate so in [this issue](https://github.com/unitedhubs/material-ui-form/issues/60).
-
----
 
 ## About
 
